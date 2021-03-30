@@ -5,15 +5,12 @@ import LogoutButton from '../auth/LogoutButton';
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
 
+  console.log(authenticated)
 
-  return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
-        </li>
+  let sessionLinks
+  if (!authenticated){
+    sessionLinks = (
+      <>
         <li>
           <NavLink to="/login" exact={true} activeClassName="active">
             Login
@@ -24,14 +21,30 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             Sign Up
           </NavLink>
         </li>
+      </>
+    )
+  } else {
+    sessionLinks = (
+      <li>
+        <LogoutButton setAuthenticated={setAuthenticated} />
+      </li>
+    )
+  }
+
+  return (
+    <nav>
+      <ul>
+        <li>
+          <NavLink to="/" exact={true} activeClassName="active">
+            Home
+          </NavLink>
+        </li>
         <li>
           <NavLink to="/users" exact={true} activeClassName="active">
             Users
           </NavLink>
         </li>
-        <li>
-          <LogoutButton setAuthenticated={setAuthenticated} />
-        </li>
+        {sessionLinks}
       </ul>
     </nav>
   );
