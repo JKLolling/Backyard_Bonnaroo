@@ -43,7 +43,8 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    print(f'errors: {validation_errors_to_error_messages(form.errors)}')
+    return {'errors': ['Invalid Credentials']}, 401
 
 
 @auth_routes.route('/logout')
@@ -72,7 +73,8 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    print(f'errors: {validation_errors_to_error_messages(form.errors)}')
+    return {'errors': ['Invalid Credentials']}, 401
 
 
 @auth_routes.route('/unauthorized')

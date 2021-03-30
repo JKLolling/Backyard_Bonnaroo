@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, Redirect } from 'react-router';
 import Modal from 'react-modal';
 import { signUp } from '../../services/auth';
 import { closeModalSignUp, openModalLogin} from '../../store/modal';
+import {setUser} from '../../store/session'
 
 import c from './SignupForm.module.css';
-// import close from '../../images/close.svg';
+import close from '../../images/close.svg';
 
 Modal.setAppElement('#root');
 
-function SignupFormModal() {
+function SignupFormModal({authenticated, setAuthenticated}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const modalSignUpState = useSelector((state) => state.modal.signup);
 
-  //TODO: Add inputs for firstname, lastname
   const [email, setEmail] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [errors, setErrors] = useState([]);
-  // I added this just to suppress the warning about errors never being used
-  if (false) {
-    console.log(errors)
-  }
 
   const closeSignUp = () => {
     dispatch(closeModalSignUp());
@@ -39,22 +35,33 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (password === confirmPassword) {
-
-
-    setErrors([]);
-
-    const data = await dispatch(signUp({ displayName, email, password })).then(data => data);
-    if (data && data.errors) {
-      setErrors(data.errors);
+    if (password === confirmPassword) {
+      const user = await signUp(username, email, password);
+      if (!user.errors) {
+        setAuthenticated(true);
+        dispatch(setUser(user))
+      } else {
+        setErrors(user.errors);
+      }
+    } else {
+      setErrors(['Passwords must match'])
     }
-    if (data && data.email) {
-      history.push(`/users/${data.display_name}`)
-    }
-    // }
-    // return setErrors(['Confirm Password field must be the same as the Password field']);
   };
+  if (authenticated) {
+    return <Redirect to="/" />;
+  }
 
+
+  let errorRender;
+  if (errors.length > 0) {
+    errorRender = (
+      <div className={c.div}>
+        <ul style={{ color: 'red' }}>
+          {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+      </div>
+    );
+  }
   return (
     <Modal
       isOpen={modalSignUpState}
@@ -67,8 +74,7 @@ function SignupFormModal() {
         <div className={c.x__container}>
           <button onClick={closeSignUp} className={c.x__button}>
             <div className={c.x__div}>
-              {/* <img className={c.x__graphic} src={close} alt='close signup' /> */}
-              hi
+              <img className={c.x__graphic} src={close} alt='close modal' />
             </div>
           </button>
         </div>
@@ -77,9 +83,7 @@ function SignupFormModal() {
         <h3 className={c.subtitle}>Join now to Ride the Wave</h3>
         <div className={c.form__container}>
           <form onSubmit={handleSubmit} className={c.form}>
-            {/* <ul>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul> */}
+            {errorRender}
             <input
               type='text'
               className={c.input}
@@ -91,8 +95,8 @@ function SignupFormModal() {
             <input
               type='text'
               className={c.input}
-              onChange={(e) => setDisplayName(e.target.value)}
-              value={displayName}
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
               placeholder='Display Name'
               required
             />
@@ -104,14 +108,14 @@ function SignupFormModal() {
               placeholder='Password'
               required
             />
-            {/* <input
-                            type="password"
-                            className={c.input}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            value={confirmPassword}
-                            placeholder='ConfirmPassword'
-                            required
-                        /> */}
+            <input
+              type='password'
+              className={c.input}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              placeholder='Confirm Password'
+              required
+            />
             <button type='submit' className={c.continue__button}>
               Continue
 						</button>
@@ -123,11 +127,9 @@ function SignupFormModal() {
         </div>
         <div className={c.div__line}></div>
         <div className={c.div}>
-          {/* this is a temp fix, we need to add an href to this anchor tag */}
-          {/*eslint-disable-next-line */}
-          <a onClick={(e) => closeSignUpOpenLogIn()} className={c.signup}>
+          <div onClick={(e) => closeSignUpOpenLogIn()} className={c.signup}>
             Already a member? Log in
-					</a>
+					</div>
         </div>
       </div>
     </Modal>

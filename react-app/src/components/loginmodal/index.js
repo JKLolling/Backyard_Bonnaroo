@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, Redirect } from 'react-router';
 import Modal from 'react-modal';
 import { login } from "../../services/auth";
-import { closeModalLogin, openModalSignUp, openModalLogin } from '../../store/modal';
+import { closeModalLogin, openModalSignUp} from '../../store/modal';
+import {setUser} from '../../store/session'
 
 // styling
 import c from './LoginForm.module.css';
-// import close from '../../images/close.svg';
+import close from '../../images/close.svg';
 
 Modal.setAppElement('#root');
 
-function LoginFormModal() {
+function LoginFormModal({ authenticated, setAuthenticated }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,20 +29,23 @@ function LoginFormModal() {
   const closeLoginOpenSignUp = () => {
     dispatch(closeModalLogin());
     dispatch(openModalSignUp());
-    history.push('/sign-up')
+    return history.push('/sign-up')
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
-    const data = await dispatch(login({ email, password })).then(data => data);
-    if (data && data.errors) {
-      setErrors(data.errors);
-    }
-    if (data && data.email) {
-      history.push(`/users/${data.display_name}`)
+    const user = await login(email, password);
+    if (!user.errors) {
+      setAuthenticated(true);
+      dispatch(setUser(user))
+    } else {
+      setErrors(user.errors);
     }
   };
+  if (authenticated) {
+    return <Redirect to="/" />;
+  }
+
 
   // TODO: for security, change to only display 'Invalid credentials'
   let errorRender;
@@ -72,8 +76,7 @@ function LoginFormModal() {
         <div className={c.x__container}>
           <button onClick={closeLogIn} className={c.x__button}>
             <div className={c.x__div}>
-              {/* <img className={c.x__graphic} src={close} alt='close login' /> */}
-              hi
+              <img className={c.x__graphic} src={close} alt='close modal' />
             </div>
           </button>
         </div>

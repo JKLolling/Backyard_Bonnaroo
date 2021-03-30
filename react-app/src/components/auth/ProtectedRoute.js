@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 //Modal stuff
@@ -8,9 +8,11 @@ import {useDispatch} from 'react-redux'
 const ProtectedRoute = props => {
   const dispatch = useDispatch()
 
-  if (!props.authenticated){
-    dispatch(openModalLogin())
-  }
+  useEffect(() => {
+    if (!props.authenticated){
+      dispatch(openModalLogin())
+    }
+  }, [props, dispatch])
 
   return (
     <Route {...props}>
