@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {useDispatch} from 'react-redux'
-import LoginForm from "./components/auth/LoginForm";
+// import LoginForm from "./components/auth/LoginForm";
+
+
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/navbar/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -9,7 +11,13 @@ import UsersList from "./components/userlist/UsersList";
 import User from "./components/user/User";
 import Map from './components/map'
 import { authenticate } from "./services/auth";
-import {setUser} from './store/session'
+
+
+// Modal stuff
+import LoginFormModal from './components/loginmodal'
+import SignupFormModal from './components/signupmodal'
+// import {openLogin} from './store/modal'
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -22,8 +30,6 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
-        // Store the session data in the store
-        dispatch(setUser(user))
       }
       setLoaded(true);
     })();
@@ -38,13 +44,12 @@ function App() {
       <NavBar setAuthenticated={setAuthenticated} />
       <Switch>
         <Route path="/login" exact={true}>
-          <LoginForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
+          {/* <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated}/> */}
+          <LoginFormModal />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          {/* <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} /> */}
+          <SignupFormModal />
         </Route>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
           <UsersList/>
