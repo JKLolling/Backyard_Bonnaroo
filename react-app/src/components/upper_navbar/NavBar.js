@@ -14,7 +14,6 @@ import c from './NavBar.module.css'
 const NavBar = ({ isLoaded }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  let sessionLinks;
 
   function openLogin() {
     dispatch(modalLogInOpen())
@@ -25,6 +24,7 @@ const NavBar = ({ isLoaded }) => {
   }
 
   // ONLY for logged in users
+  let sessionLinks;
   if (sessionUser && !sessionUser.errors) {
     sessionLinks = (
       <>

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router';
+import { useHistory, Redirect, useLocation } from 'react-router';
 import Modal from 'react-modal';
 import { login } from "../../services/auth";
-import { closeModalLogin, openModalSignUp} from '../../store/modal';
+import { closeModalLogin, openModalLogin, openModalSignUp} from '../../store/modal';
 import {setUser} from '../../store/session'
 
 // styling
@@ -13,6 +13,7 @@ import close from '../../images/close.svg';
 Modal.setAppElement('#root');
 
 function LoginFormModal({ authenticated, setAuthenticated }) {
+  const location = useLocation()
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,6 +22,11 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    dispatch(openModalLogin())
+  }, [dispatch])
+
 
   const closeLogIn = () => {
     dispatch(closeModalLogin());
@@ -64,6 +70,19 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
     setPassword('password');
   };
 
+  let x__button = <div></div>
+  if (location.pathname !== '/login'){
+    x__button = (
+      <div className={c.x__container}>
+        <button onClick={closeLogIn} className={c.x__button}>
+          <div className={c.x__div}>
+            <img className={c.x__graphic} src={close} alt='close modal' />
+          </div>
+        </button>
+      </div>
+    )
+  }
+
   return (
     <Modal
       isOpen={modalLogInState}
@@ -73,15 +92,9 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
       shouldFocusAfterRender={true}
     >
       <div className={c.container}>
-        <div className={c.x__container}>
-          <button onClick={closeLogIn} className={c.x__button}>
-            <div className={c.x__div}>
-              <img className={c.x__graphic} src={close} alt='close modal' />
-            </div>
-          </button>
-        </div>
+        {x__button}
         {/* logo */}
-        <h3 className={c.title}>Welcome to Sonic Fog</h3>
+        <h3 className={c.title}>Welcome Back to Backyard Bonnaroo</h3>
         <div className={c.form__container}>
           <form onSubmit={handleSubmit} className={c.form}>
             {errorRender}

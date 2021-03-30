@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router';
+import { useHistory, Redirect, useLocation } from 'react-router';
 import Modal from 'react-modal';
 import { signUp } from '../../services/auth';
-import { closeModalSignUp, openModalLogin} from '../../store/modal';
+import { closeModalSignUp, openModalLogin, openModalSignUp} from '../../store/modal';
 import {setUser} from '../../store/session'
 
 import c from './SignupForm.module.css';
@@ -14,6 +14,8 @@ Modal.setAppElement('#root');
 function SignupFormModal({authenticated, setAuthenticated}) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation()
+
   const modalSignUpState = useSelector((state) => state.modal.signup);
 
   const [email, setEmail] = useState('');
@@ -22,6 +24,10 @@ function SignupFormModal({authenticated, setAuthenticated}) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    dispatch(openModalSignUp())
+  }, [dispatch])
 
   const closeSignUp = () => {
     dispatch(closeModalSignUp());
@@ -62,6 +68,19 @@ function SignupFormModal({authenticated, setAuthenticated}) {
       </div>
     );
   }
+
+  let x__button = <div></div>
+  if (location.pathname !== '/sign-up'){
+    x__button = (
+      <div className={c.x__container}>
+        <button onClick={closeSignUp} className={c.x__button}>
+          <div className={c.x__div}>
+            <img className={c.x__graphic} src={close} alt='close modal' />
+          </div>
+        </button>
+      </div>
+    )
+  }
   return (
     <Modal
       isOpen={modalSignUpState}
@@ -71,16 +90,10 @@ function SignupFormModal({authenticated, setAuthenticated}) {
       shouldFocusAfterRender={true}
     >
       <div className={c.container}>
-        <div className={c.x__container}>
-          <button onClick={closeSignUp} className={c.x__button}>
-            <div className={c.x__div}>
-              <img className={c.x__graphic} src={close} alt='close modal' />
-            </div>
-          </button>
-        </div>
+        {x__button}
         {/* LOGO */}
-        <h3 className={c.title}>Welcome to Sonic Fog</h3>
-        <h3 className={c.subtitle}>Join now to Ride the Wave</h3>
+        <h3 className={c.title}>Welcome to Backyard Bonnaroo</h3>
+        <h3 className={c.subtitle}>Live, Loud, and Local</h3>
         <div className={c.form__container}>
           <form onSubmit={handleSubmit} className={c.form}>
             {errorRender}
