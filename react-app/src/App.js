@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {useDispatch} from 'react-redux'
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/navbar/NavBar";
@@ -8,20 +9,25 @@ import UsersList from "./components/userlist/UsersList";
 import User from "./components/user/User";
 import Map from './components/map'
 import { authenticate } from "./services/auth";
+import {setUser} from './store/session'
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async() => {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        // Store the session data in the store
+        dispatch(setUser(user))
       }
       setLoaded(true);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
