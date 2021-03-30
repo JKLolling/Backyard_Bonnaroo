@@ -90,6 +90,7 @@ function SignupFormModal({authenticated, setAuthenticated}) {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               placeholder='Email'
+              name='email'
               required
             />
             <input
@@ -97,7 +98,8 @@ function SignupFormModal({authenticated, setAuthenticated}) {
               className={c.input}
               onChange={(e) => setUsername(e.target.value)}
               value={username}
-              placeholder='Display Name'
+              placeholder='Username'
+              name='username'
               required
             />
             <input
@@ -106,6 +108,7 @@ function SignupFormModal({authenticated, setAuthenticated}) {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               placeholder='Password'
+              name='password'
               required
             />
             <input
@@ -114,16 +117,13 @@ function SignupFormModal({authenticated, setAuthenticated}) {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               placeholder='Confirm Password'
+              name='confirm password'
               required
             />
             <button type='submit' className={c.continue__button}>
               Continue
 						</button>
           </form>
-          <p className={c.or}>OR</p>
-        </div>
-        <div className={c.div}>
-          <button className={c.demo}>Continue as Demo</button>
         </div>
         <div className={c.div__line}></div>
         <div className={c.div}>

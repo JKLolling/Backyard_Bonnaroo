@@ -60,7 +60,7 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
   }
 
   const demoLogin = () => {
-    setEmail('demo@aa.io');
+    setEmail('demo@demo.com');
     setPassword('password');
   };
 
@@ -88,6 +88,7 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
             <div className={c.div}>
               <input
                 className={c.input}
+                name='email'
                 type='text'
                 placeholder='Email'
                 onChange={(e) => setEmail(e.target.value)}
@@ -99,6 +100,7 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
               <input
                 className={c.input}
                 type='password'
+                name='password'
                 placeholder='Password'
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
