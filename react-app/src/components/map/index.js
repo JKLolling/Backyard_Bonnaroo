@@ -26,11 +26,8 @@ function Map(){
       const res = await fetch(url)
       const data = await res.json()
       const {lat, lng} = data.results[0].geometry.location
-      // const newLat = lat
-      // const newLng = lng
-      // console.log(data, lat, lng)
+
       dispatch(mapSetCenter({lat, lng}))
-      // console.log(mapRef.current.props.center)
     })();
   }, [dispatch]);
 
