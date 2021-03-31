@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import GoogleMapReact from 'google-map-react';
+// import { URL, URLSearchParams } from 'url';
 
 const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
@@ -11,11 +12,33 @@ const defaultProps = {
   zoom: 15
 }
 
+
 const AnyName = ({ text }) => <div>{text}</div>;
 
 function Map(){
+
+  useEffect(() => {
+    (async() => {
+
+      let searchParams = new URLSearchParams();
+      searchParams.append('address', "270 Monarch Lane Austin")
+      searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
+      searchParams = searchParams.toString()
+
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?${searchParams}`
+
+      // const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${REACT_APP_API_KEY_GOOGLE_MAPS}`)
+
+      const res = await fetch(url)
+
+      const data = await res.json()
+      const {lat, lng} = data.results[0].geometry.location
+      console.log(data, lat, lng)
+    })();
+  }, []);
+
   return (
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ height: '90vh', width: '70%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
           defaultCenter={defaultProps.center}

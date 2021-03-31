@@ -5,8 +5,7 @@ import LogoutButton from '../auth/LogoutButton';
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
 
-  console.log(authenticated)
-
+  // Sets whether the user sees Login/Signup or Logout
   let sessionLinks
   if (!authenticated){
     sessionLinks = (
