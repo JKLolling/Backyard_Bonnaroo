@@ -62,9 +62,9 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/map-test' authenticated={authenticated}>
+        <Route path='/map/:mapParams' authenticated={authenticated}>
           <Map />
-        </ProtectedRoute>
+        </Route>
         <Route path="/" exact={true} authenticated={authenticated}>
           <HomePage />
         </Route>

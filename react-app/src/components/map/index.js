@@ -1,7 +1,11 @@
 import React, { useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import GoogleMapReact from 'google-map-react';
 import {mapSetCenter} from '../../store/map'
+
+//styling
+import c from './Map.module.css'
 
 const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
@@ -10,14 +14,14 @@ const AnyName = ({ text }) => <div>{text}</div>;
 function Map(){
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
+  const params = useParams().mapParams
 
 
   useEffect(() => {
     (async() => {
 
       // const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${REACT_APP_API_KEY_GOOGLE_MAPS}`)
-      let searchParams = new URLSearchParams();
-      searchParams.append('address', "270 Monarch Lane Austin")
+      let searchParams = new URLSearchParams(params);
       searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
       searchParams = searchParams.toString()
 
@@ -29,7 +33,7 @@ function Map(){
 
       dispatch(mapSetCenter({lat, lng}))
     })();
-  }, [dispatch]);
+  }, [dispatch, params]);
 
 
   const apiIsLoaded = (map, maps) => {
@@ -40,24 +44,25 @@ function Map(){
   };
 
   return (
-      <div style={{ height: '90vh', width: '70%' }}>
-        <div>
-          {storeMapData.center.lat}
+      <div className={c.page_container}>
+        <div className={c.page_content}>
+          <div className={c.results_container}>Results</div>
+          <div style={{ height: '100%', width: '60%' }} className={c.map}>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
+              center={storeMapData.center}
+              zoom={storeMapData.zoom}
+              yesIWantToUseGoogleMapApiInternals
+              onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
+            >
+              <AnyName
+                lat={59.955413}
+                lng={30.337844}
+                text="My Marker"
+              />
+            </GoogleMapReact>
+          </div>
         </div>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
-          center={storeMapData.center}
-          zoom={storeMapData.zoom}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
-        >
-          <AnyName
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-
       </div>
   )
 }

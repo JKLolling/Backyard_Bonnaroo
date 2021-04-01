@@ -29,9 +29,6 @@
   z-index: 2;
 }
 .nav_content{
-  /* position: relative;
-  left: -20px; */
-
   padding: 0px;
 
   box-sizing: border-box;
@@ -42,6 +39,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  transition: all .5s ease-in-out;
 }
 
 nav li {

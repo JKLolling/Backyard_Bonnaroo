@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useEffect, useRef} from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import {useSelector} from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
 
@@ -10,6 +10,19 @@ import c from './NavBar.module.css'
 const NavBar = ({ authenticated, setAuthenticated }) => {
 
   const storeUserData = useSelector(store => store.session)
+  const location = useLocation();
+  const navContentRef = useRef()
+
+  const pathIsMap = location.pathname.split('/')[1] === 'map'
+
+
+  useEffect(() => {
+    if (pathIsMap){
+      navContentRef.current.style.width='94%'
+    } else {
+      navContentRef.current.style.width='55vw'
+    }
+  },[pathIsMap])
 
   // Sets whether the user sees Login/Signup or Logout
   let sessionLinks
@@ -45,21 +58,18 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
 
   return (
     <nav className={c.nav}>
-      <ul className={c.nav_content}>
+      <ul className={c.nav_content} ref={navContentRef}>
         <li>
-
           <div className={c.home_div}>
             <NavLink to="/" exact={true} activeClassName="active">
               Home
             </NavLink>
           </div>
-
-
         </li>
         <li className={c.logo_li}>
           <div className={c.logo_div}>
             <NavLink to="/" exact={true} activeClassName="active" >
-              <img src='static/logo1.jpg' alt='logo' className={c.logo}/>
+              <img src='../static/logo.jpg' alt='logo' className={c.logo}/>
             </NavLink>
           </div>
         </li>
