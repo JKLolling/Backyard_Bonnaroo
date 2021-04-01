@@ -100,5 +100,6 @@ def seed_artists():
 # TRUNCATE Removes all the data from the table, and resets
 # the auto incrementing primary key
 def undo_artists():
-    db.session.execute('TRUNCATE artists;')
+    db.session.execute('TRUNCATE artists CASCADE;')
+    db.session.execute('ALTER SEQUENCE artists_id_seq RESTART WITH 1;')
     db.session.commit()

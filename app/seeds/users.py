@@ -7,9 +7,9 @@ def seed_users():
     demo = User(username='Demo', email='demo@aa.io',
                 password='password')
 
-    db.session.add(demo)
+    # db.session.add(demo)
 
-    db.session.commit()
+    # db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this
@@ -17,4 +17,5 @@ def seed_users():
 # the auto incrementing primary key
 def undo_users():
     db.session.execute('TRUNCATE users;')
+    db.session.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1;')
     db.session.commit()
