@@ -7,13 +7,17 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/userlist/UsersList";
 import User from "./components/user/User";
 import Map from './components/map'
+import HomePage from './components/splash_page'
 import { authenticate } from "./services/auth";
 
 
 // Modal stuff
 import LoginFormModal from './components/loginmodal'
 import SignupFormModal from './components/signupmodal'
-// import {openLogin} from './store/modal'
+
+
+// Styling
+import c from './App.module.css'
 
 
 function App() {
@@ -41,9 +45,15 @@ function App() {
       <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
       <Switch>
         <Route path="/login" exact={true}>
+          <div className={c.login_image_holder}>
+            <img src='static/login.jpg' alt='warm' className={c.login_image}/>
+          </div>
           <LoginFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </Route>
         <Route path="/sign-up" exact={true}>
+          <div className={c.login_image_holder}>
+            <img src='static/signup.jpg' alt='warm' className={c.login_image}/>
+          </div>
           <SignupFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </Route>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
@@ -52,12 +62,12 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/map-test' authenticated={authenticated}>
+        <Route path='/map/:mapParams' authenticated={authenticated}>
           <Map />
-        </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        </Route>
+        <Route path="/" exact={true} authenticated={authenticated}>
+          <HomePage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

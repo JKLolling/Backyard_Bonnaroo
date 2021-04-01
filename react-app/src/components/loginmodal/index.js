@@ -30,6 +30,10 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
 
   const closeLogIn = () => {
     dispatch(closeModalLogin());
+
+    if (location.pathname === '/login'){
+      history.push('/')
+    }
   };
 
   const closeLoginOpenSignUp = () => {
@@ -70,18 +74,6 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
     setPassword('password');
   };
 
-  let x__button = <div></div>
-  if (location.pathname !== '/login'){
-    x__button = (
-      <div className={c.x__container}>
-        <button onClick={closeLogIn} className={c.x__button}>
-          <div className={c.x__div}>
-            <img className={c.x__graphic} src={close} alt='close modal' />
-          </div>
-        </button>
-      </div>
-    )
-  }
 
   return (
     <Modal
@@ -92,9 +84,15 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
       shouldFocusAfterRender={true}
     >
       <div className={c.container}>
-        {x__button}
+        <div className={c.x__container}>
+          <button onClick={closeLogIn} className={c.x__button}>
+            <div className={c.x__div}>
+              <img className={c.x__graphic} src={close} alt='close modal' />
+            </div>
+          </button>
+        </div>
         {/* logo */}
-        <h3 className={c.title}>Welcome Back to Backyard Bonnaroo</h3>
+        <h3 className={c.title}>Welcome Back</h3>
         <div className={c.form__container}>
           <form onSubmit={handleSubmit} className={c.form}>
             {errorRender}
