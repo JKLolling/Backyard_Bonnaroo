@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 
 
+//Styling
+import c from './NavBar.module.css'
+
 const NavBar = ({ authenticated, setAuthenticated }) => {
 
   // Sets whether the user sees Login/Signup or Logout
@@ -31,8 +34,8 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
   }
 
   return (
-    <nav>
-      <ul>
+    <nav className={c.nav}>
+      <ul className={c.nav_content}>
         <li>
           <NavLink to="/" exact={true} activeClassName="active">
             Home
