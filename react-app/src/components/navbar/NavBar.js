@@ -14,22 +14,27 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     sessionLinks = (
       <>
         <li>
-          <NavLink to="/login" exact={true} activeClassName="active">
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-up" exact={true} activeClassName="active">
-            Sign Up
-          </NavLink>
+          <div className={c.sessionLinks}>
+            <NavLink to="/login" exact={true} activeClassName="active">
+              Login
+            </NavLink>
+            <NavLink to="/sign-up" exact={true} activeClassName="active">
+              Sign Up
+            </NavLink>
+          </div>
         </li>
       </>
     )
   } else {
     sessionLinks = (
-      <li>
-        <LogoutButton setAuthenticated={setAuthenticated} />
-      </li>
+      <>
+        <li>
+          <div className={c.sessionLinks}>
+            <LogoutButton setAuthenticated={setAuthenticated} />
+            UserPage(TEMP)
+          </div>
+        </li>
+      </>
     )
   }
 
@@ -37,14 +42,18 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     <nav className={c.nav}>
       <ul className={c.nav_content}>
         <li>
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
+          <div className={c.home_div}>
+            <NavLink to="/" exact={true} activeClassName="active">
+              Home
+            </NavLink>
+          </div>
         </li>
-        <li>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
+        <li className={c.logo_li}>
+          <div className={c.logo_div}>
+            <NavLink to="/" exact={true} activeClassName="active" >
+              <img src='static/logo1.jpg' alt='logo' className={c.logo}/>
+            </NavLink>
+          </div>
         </li>
         {sessionLinks}
       </ul>
