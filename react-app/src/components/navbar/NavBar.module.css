@@ -1,10 +1,16 @@
+:root{
+  --nav-element-width: 150px;
+}
+
 .nav {
   background-color: #f6f1ee;
   color: black;
 
   box-sizing: border-box;
 
-  font-size: 14px;
+  font-family: 'Courgette', cursive;
+  font-family: 'Pacifico', cursive;
+  font-size: 18px;
   line-height: 1.5;
 
   width: 100%;
@@ -36,48 +42,81 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* overflow: hidden; */
 }
 
 nav li {
   list-style-type: none;
-  /* height: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center; */
-}
- .nav a {
-  color: black;
-  text-decoration: none;
-
   height: 100%;
-  width: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+ .nav a {
+  box-sizing: border-box;
+  color: black;
+  text-decoration: none;
 
+  transition: all .3s ease-in-out;
 
-.home_div{
-  width: 100px;
+  border: 1px solid transparent;
 }
+
 
 .sessionLinks {
   display: flex;
-  width: 100px;
-}
 
-.logo_li{
+  width: var(--nav-element-width);
+  height: 100%;
+}
+.sessionLinks a {
+  height: 100%;
+  width: 100%;
+
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.sessionLinks a:hover{
+  border: 1px solid lightgrey;
+  background-color: white;
+  border-radius: .5em;
+}
+
+
+.home_div {
+  width: var(--nav-element-width);
+  height: 100%;
+}
+.home_div a{
+  height: 100%;
+  width: 100%;
+
+  position: relative;
+  left: -50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 22px;
+}
+.home_div a:hover{
+  border: 1px solid lightgrey;
+  background-color: white;
+  border-radius: .5em;
+}
+
+
+
+
+.logo_div a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .logo{
   height: 40px;
-  justify-self: center;
-  /* width: 10px; */
 }
 
 

@@ -42,11 +42,14 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     <nav className={c.nav}>
       <ul className={c.nav_content}>
         <li>
+
           <div className={c.home_div}>
             <NavLink to="/" exact={true} activeClassName="active">
               Home
             </NavLink>
           </div>
+
+
         </li>
         <li className={c.logo_li}>
           <div className={c.logo_div}>

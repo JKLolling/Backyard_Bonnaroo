@@ -19,7 +19,7 @@
   font-family: 'Pacifico', cursive;
 
   font-size: 2.5rem;
-  padding-top: 20px;
+  padding-top: 30px;
 }
 .subtitle{
   font-family: 'Berkshire Swash', cursive;
@@ -46,7 +46,7 @@
   height: 60px;
 
   position: absolute;
-  top: 170px;
+  top: 180px;
 
   display: flex;
   justify-content: center;
