@@ -11,6 +11,7 @@ class Artist(db.Model):
   sample_song = db.Column(db.String(255))
   created_on = db.Column(db.DateTime, default=datetime.now())
 
+  shows = db.relationship("Show", back_populates="artist")
 
   def to_dict(self):
     return {
