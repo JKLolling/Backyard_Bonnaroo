@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import {useSelector} from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
 
 
@@ -7,6 +8,8 @@ import LogoutButton from '../auth/LogoutButton';
 import c from './NavBar.module.css'
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
+
+  const storeUserData = useSelector(store => store.session)
 
   // Sets whether the user sees Login/Signup or Logout
   let sessionLinks
@@ -31,7 +34,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         <li>
           <div className={c.sessionLinks}>
             <LogoutButton setAuthenticated={setAuthenticated} />
-            UserPage(TEMP)
+            <NavLink to={`/users/${storeUserData?.user?.id}`} exact={true} activeClassName="active">
+              Profile
+            </NavLink>
           </div>
         </li>
       </>

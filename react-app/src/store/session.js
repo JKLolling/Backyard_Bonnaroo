@@ -20,7 +20,6 @@ const initialState = { user: null };
 export default function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      console.log(action)
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { user: null };
