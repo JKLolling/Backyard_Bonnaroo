@@ -31,6 +31,9 @@ function SignupFormModal({authenticated, setAuthenticated}) {
 
   const closeSignUp = () => {
     dispatch(closeModalSignUp());
+
+    if (location.pathname === '/sign-up')
+      history.push('/')
   };
 
   const closeSignUpOpenLogIn = () => {
@@ -69,18 +72,6 @@ function SignupFormModal({authenticated, setAuthenticated}) {
     );
   }
 
-  let x__button = <div></div>
-  if (location.pathname !== '/sign-up'){
-    x__button = (
-      <div className={c.x__container}>
-        <button onClick={closeSignUp} className={c.x__button}>
-          <div className={c.x__div}>
-            <img className={c.x__graphic} src={close} alt='close modal' />
-          </div>
-        </button>
-      </div>
-    )
-  }
   return (
     <Modal
       isOpen={modalSignUpState}
@@ -90,7 +81,13 @@ function SignupFormModal({authenticated, setAuthenticated}) {
       shouldFocusAfterRender={true}
     >
       <div className={c.container}>
-        {x__button}
+        <div className={c.x__container}>
+          <button onClick={closeSignUp} className={c.x__button}>
+            <div className={c.x__div}>
+              <img className={c.x__graphic} src={close} alt='close modal' />
+            </div>
+          </button>
+        </div>
         {/* LOGO */}
         <h3 className={c.title}>Welcome to Backyard Bonnaroo</h3>
         <h3 className={c.subtitle}>Live, Loud, and Local</h3>

@@ -14,7 +14,10 @@ import { authenticate } from "./services/auth";
 // Modal stuff
 import LoginFormModal from './components/loginmodal'
 import SignupFormModal from './components/signupmodal'
-// import {openLogin} from './store/modal'
+
+
+// Styling
+import c from './App.module.css'
 
 
 function App() {
@@ -42,9 +45,15 @@ function App() {
       <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
       <Switch>
         <Route path="/login" exact={true}>
+          <div className={c.login_image_holder}>
+            <img src='static/login.jpg' alt='warm' className={c.login_image}/>
+          </div>
           <LoginFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </Route>
         <Route path="/sign-up" exact={true}>
+          <div className={c.login_image_holder}>
+            <img src='static/signup.jpg' alt='warm' className={c.login_image}/>
+          </div>
           <SignupFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </Route>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
