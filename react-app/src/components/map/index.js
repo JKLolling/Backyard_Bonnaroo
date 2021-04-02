@@ -17,6 +17,22 @@ function Map(){
   const params = useParams().mapParams
 
 
+  // Get the shows in the area
+  useEffect(() => {
+    if (!storeMapData?.center) return;
+
+    (async() => {
+      const res = await fetch('/api/shows/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(storeMapData.center)
+      })
+      const data = await res.json()
+      console.log(data)
+    })()
+  }, [storeMapData])
+
+  // Get the map coords for the address and set the redux store with the map coords
   useEffect(() => {
     (async() => {
 
@@ -35,13 +51,18 @@ function Map(){
     })();
   }, [dispatch, params]);
 
-
+  // Center the map around the map coords in the store on the very first load
   const apiIsLoaded = (map, maps) => {
     if (map) {
       map.setCenter(storeMapData.center)
       map.setZoom(storeMapData.zoom)
     }
   };
+
+  const updateStoreCoords = (e) => {
+    const {lat, lng} = e.center
+    dispatch(mapSetCenter({lat, lng}))
+  }
 
   return (
       <div className={c.page_container}>
@@ -52,6 +73,7 @@ function Map(){
               bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
               center={storeMapData.center}
               zoom={storeMapData.zoom}
+              onChange={updateStoreCoords}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
             >

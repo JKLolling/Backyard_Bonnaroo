@@ -31,6 +31,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <>
         <li>
           <div className={c.sessionLinks}>
+            {/* TODO: if you are on the home, navigate to the log in page. Otherwise, just open the modal */}
             <NavLink to="/login" exact={true} activeClassName="active">
               Login
             </NavLink>

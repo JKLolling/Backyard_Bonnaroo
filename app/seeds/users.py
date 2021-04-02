@@ -4,7 +4,7 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
 
-    demo = User(username='Demo', email='demo@aa.io',
+    demo = User(username='CoolCat42', email='demo@demo.com',
                 password='password')
 
     db.session.add(demo)
@@ -17,4 +17,5 @@ def seed_users():
 # the auto incrementing primary key
 def undo_users():
     db.session.execute('TRUNCATE users;')
+    db.session.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1;')
     db.session.commit()
