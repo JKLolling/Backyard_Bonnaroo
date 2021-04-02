@@ -28,6 +28,7 @@ function Map(){
         body: JSON.stringify(storeMapData.center)
       })
       const data = await res.json()
+      console.log(data)
     })()
   }, [storeMapData])
 
@@ -50,14 +51,18 @@ function Map(){
     })();
   }, [dispatch, params]);
 
-  // Center the map around the map coords in the store
+  // Center the map around the map coords in the store on the very first load
   const apiIsLoaded = (map, maps) => {
     if (map) {
       map.setCenter(storeMapData.center)
       map.setZoom(storeMapData.zoom)
-      console.log(storeMapData.center)
     }
   };
+
+  const updateStoreCoords = (e) => {
+    const {lat, lng} = e.center
+    dispatch(mapSetCenter({lat, lng}))
+  }
 
   return (
       <div className={c.page_container}>
@@ -68,6 +73,7 @@ function Map(){
               bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
               center={storeMapData.center}
               zoom={storeMapData.zoom}
+              onChange={updateStoreCoords}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
             >
