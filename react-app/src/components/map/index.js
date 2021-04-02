@@ -17,14 +17,21 @@ function Map(){
   const params = useParams().mapParams
 
 
+  // Get the shows in the area
   useEffect(() => {
-    (async() => {
-      const res = await fetch('/api/shows')
-      const data = await res.json()
-      console.log(data)
-    })()
-  })
+    if (!storeMapData?.center) return;
 
+    (async() => {
+      const res = await fetch('/api/shows/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(storeMapData.center)
+      })
+      const data = await res.json()
+    })()
+  }, [storeMapData])
+
+  // Get the map coords for the address and set the redux store with the map coords
   useEffect(() => {
     (async() => {
 
@@ -43,7 +50,7 @@ function Map(){
     })();
   }, [dispatch, params]);
 
-
+  // Center the map around the map coords in the store
   const apiIsLoaded = (map, maps) => {
     if (map) {
       map.setCenter(storeMapData.center)
