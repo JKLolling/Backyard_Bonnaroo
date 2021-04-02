@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, time
+import urllib3
 from app.models import db, Show, Artist
 
 # Adds a demo user, you can add other users here if you want
@@ -21,6 +22,17 @@ def seed_shows():
     '912 Red River St, Austin, TX 78701',
     '2247 Guadalupe St, Austin, TX 78712',
   ]
+
+  locations_lats_lngs = []
+  for location in locations:
+    searchParams = new URLSearchParams();
+    searchParams.append('address', location)
+    searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
+    searchParams = searchParams.toString()
+
+    url = f'https://maps.googleapis.com/maps/api/geocode/json?{searchParams}'
+    print(url)
+
 
   artist_ids = []
   for value in Artist.query.all():
@@ -54,6 +66,8 @@ def seed_shows():
         cost = 20
       show_time = time(hours, mins, 0)
 
+
+
       new_show = Show(
         location = locations[location_num],
         date = show_date,
@@ -76,7 +90,7 @@ def seed_shows():
       else:
         location_num += 1
 
-  db.session.commit()
+  # db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this

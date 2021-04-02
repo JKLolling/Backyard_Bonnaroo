@@ -19,6 +19,14 @@ function Map(){
 
   useEffect(() => {
     (async() => {
+      const res = await fetch('/api/shows')
+      const data = await res.json()
+      console.log(data)
+    })()
+  })
+
+  useEffect(() => {
+    (async() => {
 
       // const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${REACT_APP_API_KEY_GOOGLE_MAPS}`)
       let searchParams = new URLSearchParams(params);

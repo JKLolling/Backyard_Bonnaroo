@@ -6,6 +6,8 @@ class Show(db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   location = db.Column(db.String(255), nullable = False)
+  location_lat = db.Column(db.Integer, nullable=False)
+  location_lng = db.Column(db.Integer, nullable=False)
   date = db.Column(db.String(255), nullable = False)
   time = db.Column(db.String(255), nullable = False)
   cost = db.Column(db.Float, nullable = False)
