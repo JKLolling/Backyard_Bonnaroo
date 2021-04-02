@@ -31,7 +31,18 @@ function Map(){
         body: JSON.stringify(storeMapData.center)
       })
       const data = await res.json()
-      setShows(data.shows)
+      // setShows(data.shows)
+
+      // This prevents multiple pins from being on the same spot
+      const visited = new Set()
+      const no_duplicate_addresses = []
+      data.shows.forEach(show => {
+        if (!visited.has(show.address)){
+          visited.add(show.address)
+          no_duplicate_addresses.push(show)
+        }
+      });
+      setShows(no_duplicate_addresses)
     })()
 
   }, [storeMapData])
