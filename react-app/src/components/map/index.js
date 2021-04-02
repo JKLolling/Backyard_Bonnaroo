@@ -4,12 +4,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import GoogleMapReact from 'google-map-react';
 import {mapSetCenter} from '../../store/map'
 
+import ShowPin from '../show_pin'
+
 //styling
 import c from './Map.module.css'
 
 const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
-
-const AnyName = ({ text }) => <div>{text}</div>;
 
 function Map(){
   const [shows, setShows] = useState([])
@@ -18,6 +18,7 @@ function Map(){
   const storeMapData = useSelector(store => store.map)
   const params = useParams().mapParams
 
+  // {lat: 40.72218906687755, lng: -73.98828157999449} 20
 
   // Get the shows in the area
   useEffect(() => {
@@ -34,7 +35,6 @@ function Map(){
     })()
 
   }, [storeMapData])
-  console.log(shows)
 
   // Get the map coords for the address and set the redux store with the map coords
   useEffect(() => {
@@ -66,14 +66,15 @@ function Map(){
   const updateStoreCoords = (e) => {
     const {lat, lng} = e.center
 
+    // console.log(e.center, e.zoom)
     // Not sure if I should include this. Probably not
-    const latDiff = Math.abs(storeMapData.center.lat - lat)
-    const lngDiff = Math.abs(storeMapData.center.lng - lng)
+    // const latDiff = Math.abs(storeMapData.center.lat - lat)
+    // const lngDiff = Math.abs(storeMapData.center.lng - lng)
 
-    console.log(latDiff > 0.01, lngDiff > 0.01)
-    if (latDiff > 0.01 || lngDiff > 0.01){
-      dispatch(mapSetCenter({lat, lng}))
-    }
+    // console.log(latDiff > 0.01, lngDiff > 0.01)
+    // if (latDiff > 0.01 || lngDiff > 0.01){
+    // }
+    dispatch(mapSetCenter({lat, lng}))
   }
 
   return (
@@ -86,15 +87,15 @@ function Map(){
               center={storeMapData.center}
               zoom={storeMapData.zoom}
               onChange={updateStoreCoords}
+              hoverDistance={20}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
             >
               {shows.map(show => (
-                <AnyName
+                <ShowPin
                   key={show.address+show.date}
                   lat={show.location_lat}
                   lng={show.location_lng}
-                  text="My Marker"
                 />
               ))}
             </GoogleMapReact>

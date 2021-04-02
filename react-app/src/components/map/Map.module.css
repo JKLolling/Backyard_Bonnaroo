@@ -30,8 +30,13 @@
 
   z-index: 1;
 }
-
 /* height: '90vh', width: '70%'  */
-.map {
+/* .map {
 
+} */
+
+.pin{
+  width: 40px;
+  position: absolute;
+  transform: translate(-50%, -100%);
 }

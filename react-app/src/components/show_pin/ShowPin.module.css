@@ -1,0 +1,9 @@
+.pin{
+  width: 40px;
+  position: absolute;
+  transform: translate(-50%, -100%);
+}
+
+.hovered{
+  width: 100px;
+}
