@@ -18,7 +18,6 @@ function Map(){
   const storeMapData = useSelector(store => store.map)
   const params = useParams().mapParams
 
-  // {lat: 40.72218906687755, lng: -73.98828157999449} 20
 
   // Get the shows in the area
   useEffect(() => {
@@ -98,7 +97,7 @@ function Map(){
               center={storeMapData.center}
               zoom={storeMapData.zoom}
               onChange={updateStoreCoords}
-              hoverDistance={20}
+              hoverDistance={25}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
             >
