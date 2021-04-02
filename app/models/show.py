@@ -5,9 +5,9 @@ class Show(db.Model):
   __tablename__ = 'shows'
 
   id = db.Column(db.Integer, primary_key = True)
-  location = db.Column(db.String(255), nullable = False)
-  location_lat = db.Column(db.Integer, nullable=False)
-  location_lng = db.Column(db.Integer, nullable=False)
+  address = db.Column(db.String(255), nullable = False)
+  location_lat = db.Column(db.Float, nullable=False)
+  location_lng = db.Column(db.Float, nullable=False)
   date = db.Column(db.String(255), nullable = False)
   time = db.Column(db.String(255), nullable = False)
   cost = db.Column(db.Float, nullable = False)
@@ -21,7 +21,9 @@ class Show(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "location": self.location,
+      "address": self.address,
+      "location_lat": self.location_lat,
+      "location_lng": self.location_lng,
       "date": self.date,
       "time": self.time,
       "cost": self.cost,

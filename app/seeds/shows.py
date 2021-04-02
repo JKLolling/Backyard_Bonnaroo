@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, time
-import urllib3
+import requests
+import os
 from app.models import db, Show, Artist
 
 # Adds a demo user, you can add other users here if you want
@@ -25,18 +26,20 @@ def seed_shows():
 
   locations_lats_lngs = []
   for location in locations:
-    searchParams = new URLSearchParams();
-    searchParams.append('address', location)
-    searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
-    searchParams = searchParams.toString()
+    maps_api_key = os.environ.get('REACT_APP_API_KEY_GOOGLE_MAPS')
 
-    url = f'https://maps.googleapis.com/maps/api/geocode/json?{searchParams}'
-    print(url)
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?'
+    params = {'key': maps_api_key, 'address': location}
+    r = requests.get(url =url, params = params)
+    response = r.json()['results'][0]['geometry']['location']
+    lat, lng = response['lat'], response['lng']
+    locations_lats_lngs.append((lat, lng))
 
 
   artist_ids = []
   for value in Artist.query.all():
     artist_ids.append(value.id)
+
 
 
   artist_num = 0
@@ -69,7 +72,9 @@ def seed_shows():
 
 
       new_show = Show(
-        location = locations[location_num],
+        address = locations[location_num],
+        location_lat = locations_lats_lngs[location_num][0],
+        location_lng = locations_lats_lngs[location_num][1],
         date = show_date,
         time = show_time,
         cost = cost,
@@ -90,7 +95,7 @@ def seed_shows():
       else:
         location_num += 1
 
-  # db.session.commit()
+  db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
 # SQLAlchemy doesn't have a built in function to do this

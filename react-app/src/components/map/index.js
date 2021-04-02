@@ -48,6 +48,7 @@ function Map(){
     if (map) {
       map.setCenter(storeMapData.center)
       map.setZoom(storeMapData.zoom)
+      console.log(storeMapData.center)
     }
   };
 
