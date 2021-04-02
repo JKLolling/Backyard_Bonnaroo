@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import GoogleMapReact from 'google-map-react';
@@ -12,6 +12,8 @@ const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 const AnyName = ({ text }) => <div>{text}</div>;
 
 function Map(){
+  const [shows, setShows] = useState([])
+
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
   const params = useParams().mapParams
@@ -28,9 +30,11 @@ function Map(){
         body: JSON.stringify(storeMapData.center)
       })
       const data = await res.json()
-      console.log(data)
+      setShows(data.shows)
     })()
+
   }, [storeMapData])
+  console.log(shows)
 
   // Get the map coords for the address and set the redux store with the map coords
   useEffect(() => {
@@ -61,7 +65,15 @@ function Map(){
 
   const updateStoreCoords = (e) => {
     const {lat, lng} = e.center
-    dispatch(mapSetCenter({lat, lng}))
+
+    // Not sure if I should include this. Probably not
+    const latDiff = Math.abs(storeMapData.center.lat - lat)
+    const lngDiff = Math.abs(storeMapData.center.lng - lng)
+
+    console.log(latDiff > 0.01, lngDiff > 0.01)
+    if (latDiff > 0.01 || lngDiff > 0.01){
+      dispatch(mapSetCenter({lat, lng}))
+    }
   }
 
   return (
@@ -77,11 +89,14 @@ function Map(){
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
             >
-              <AnyName
-                lat={59.955413}
-                lng={30.337844}
-                text="My Marker"
-              />
+              {shows.map(show => (
+                <AnyName
+                  key={show.address+show.date}
+                  lat={show.location_lat}
+                  lng={show.location_lng}
+                  text="My Marker"
+                />
+              ))}
             </GoogleMapReact>
           </div>
         </div>
