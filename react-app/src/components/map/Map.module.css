@@ -23,13 +23,29 @@
 .results_container{
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .6);
   width: 40%;
+  height: 500px;
   height: 100%;
+  /* min-height: max-content; */
+  /* height: min-content; */
 
-  background-color: #f6f1ee;
   background-color: white;
 
   z-index: 1;
+
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+
+  overflow: auto;
+
+  /* Flip the scrollbar */
+  direction: rtl;
 }
+/* .results_inner_container{
+
+} */
+
 /* height: '90vh', width: '70%'  */
 /* .map {
 } */

@@ -5,6 +5,7 @@ import GoogleMapReact from 'google-map-react';
 import {mapSetCenter} from '../../store/map'
 
 import ShowPin from '../show_pin'
+import ShowCard from '../show_card'
 
 //styling
 import c from './Map.module.css'
@@ -90,7 +91,16 @@ function Map(){
   return (
       <div className={c.page_container}>
         <div className={c.page_content}>
-          <div className={c.results_container}>Results</div>
+          <div className={c.results_container}>
+            {/* <div className={c.results_inner_container}> */}
+              {shows.map(show => (
+                <ShowCard
+                  key={show.address + show.date}
+                  info={show}
+                />
+              ))}
+            {/* </div> */}
+          </div>
           <div style={{ height: '100%', width: '60%' }} className={c.map}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}

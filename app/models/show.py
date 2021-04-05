@@ -28,5 +28,6 @@ class Show(db.Model):
       "time": self.time,
       "cost": self.cost,
       "description": self.description,
-      "artist_id": self.artist_id
+      "artist_id": self.artist_id,
+      'artist': self.artist.to_dict()
     }

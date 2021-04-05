@@ -6,7 +6,7 @@ import NavBar from "./components/navbar/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/userlist/UsersList";
 import User from "./components/user/User";
-import Map from './components/map'
+import ExplorePage from './components/explore_page'
 import HomePage from './components/splash_page'
 import { authenticate } from "./services/auth";
 
@@ -63,7 +63,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/map/:mapParams' authenticated={authenticated}>
-          <Map />
+          <ExplorePage />
         </Route>
         <Route path="/" exact={true} authenticated={authenticated}>
           <HomePage />

@@ -1,0 +1,10 @@
+.card_holder{
+  width: 90%;
+  height: 400px;
+
+  background-color: rgba(246,241,238, 1);
+  margin: 20px auto;
+  border: 2px solid black;
+
+  direction: ltr;
+}
