@@ -65,12 +65,16 @@
   flex-wrap: wrap;
 }
 .day_holder{
-  padding: 35px;
+  padding: 20px 35px;
   width: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.day_holder:hover{
+  background-color: tomato;
+  cursor: pointer;
 }
 
 /* OTHER STYLING BELOW */

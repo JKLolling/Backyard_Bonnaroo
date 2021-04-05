@@ -16,27 +16,35 @@ Modal.setAppElement('#root');
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
   const [selectedYear, setSelectedYear] = useState((new Date()).getFullYear())
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
+  const [selectedDate, setSelectedDate] = useState(null)
+  // const [selectedDay, setSelectedDay ]
 
+  const openModal = () => {
+    setShowModal(true)
+  }
+  const closeModal = (e) => {
+    setShowModal(false)
+  }
 
   const getNumDaysInMonth = (month_num, year) => {
     return 42 - new Date(year, month_num, 42).getDate()
   }
 
-  const getDaysInPreviousMonth = (month_num, year_num) => {
-    let last_month = month_num
-    let year = year_num
+  useEffect(() => {
+    const getDaysInPreviousMonth = (month_num, year_num) => {
+      let last_month = month_num
+      let year = year_num
 
-    if (month_num === 0){
-      last_month = 12
-      year--
-    } else {
-      last_month--
+      if (month_num === 0){
+        last_month = 12
+        year--
+      } else {
+        last_month--
+      }
+
+      return getNumDaysInMonth(last_month, year)
     }
 
-    return getNumDaysInMonth(last_month, year)
-  }
-
-  const getCalendarDetails = () => {
     const num_days = getNumDaysInMonth(selectedMonth, selectedYear)
     const start_of_month_day = new Date(selectedYear, selectedMonth).getDay()
 
@@ -54,25 +62,13 @@ Modal.setAppElement('#root');
       temp.push(i+1)
     }
     setCurrentCalendarSlice(temp)
-  }
-  useEffect(() => {
-    getCalendarDetails()
   }, [selectedMonth, selectedYear])
 
 
-  const days = (
-    <span>
-      'hi'
-    </span>
-  )
-
-  const openModal = () => {
-    setShowModal(true)
+  const dateClicked = (e) => {
+    const temp = new Date(selectedYear, selectedMonth, e.target.innerText)
+    setSelectedDate(temp)
   }
-  const closeModal = (e) => {
-    setShowModal(false)
-  }
-
   const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
   return (
     <>
@@ -109,7 +105,10 @@ Modal.setAppElement('#root');
               </div>
               <div className={c.days_holder}>
                 {currentCalendarSlice.map(day =>
-                  <div className={c.day_holder}>
+                  <div
+                    className={c.day_holder}
+                    onClick={dateClicked}
+                  >
                     {day}
                   </div>
                 )}
