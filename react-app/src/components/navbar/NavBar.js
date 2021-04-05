@@ -1,19 +1,20 @@
 import React, {useEffect, useRef} from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
+
+import DatePicker from '../date_picker'
 
 
 //Styling
 import c from './NavBar.module.css'
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
+  const location = useLocation();
+  const pathIsMap = location.pathname.split('/')[1] === 'map'
 
   const storeUserData = useSelector(store => store.session)
-  const location = useLocation();
   const navContentRef = useRef()
-
-  const pathIsMap = location.pathname.split('/')[1] === 'map'
 
 
   useEffect(() => {
@@ -66,6 +67,16 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
               Home
             </NavLink>
           </div>
+          {pathIsMap && <div className={c.nav_search_holder}>
+              {/* <input
+                type='search'
+                className={c.nav_search}
+                placeholder={'hey'}
+                ></input> */}
+              <DatePicker
+
+              />
+          </div>}
         </li>
         <li className={c.logo_li}>
           <div className={c.logo_div}>

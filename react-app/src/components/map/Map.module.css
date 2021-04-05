@@ -32,19 +32,16 @@
 
   z-index: 1;
 
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* flex-direction: column; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
 
   overflow: auto;
 
   /* Flip the scrollbar */
   direction: rtl;
 }
-/* .results_inner_container{
-
-} */
 
 /* height: '90vh', width: '70%'  */
 /* .map {

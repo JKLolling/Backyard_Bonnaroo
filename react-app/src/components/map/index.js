@@ -19,7 +19,7 @@ function Map(){
   const storeMapData = useSelector(store => store.map)
   const params = useParams().mapParams
 
-
+  console.log(params)
   // Get the shows in the area
   useEffect(() => {
     if (!storeMapData?.center) return;

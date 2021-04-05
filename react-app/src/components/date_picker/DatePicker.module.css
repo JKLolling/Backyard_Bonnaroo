@@ -1,0 +1,168 @@
+.datepicker_parent {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently */
+}
+
+/* MODAL CONTENT and OVERLAY STYLING */
+.content {
+  position: absolute;
+  top: 50px;
+
+  margin: 15px;
+
+  background-color: rgba(246,241,238, 1);
+
+  display: flex;
+  justify-content: center;
+
+  height: 30vh;
+  width: 37vw;
+
+  padding: 20px 10px 24px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.overlay {
+  background-color: rgba(51, 51, 51, 0.3);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.calendar{
+  width: 80%;
+  background-color: yellowgreen;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.day_headers{
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  /* font-size: 1em; */
+
+  margin: 10px;
+}
+.day_header{
+  margin: 10px;
+  flex-shrink: 0;
+}
+
+.days_holder{
+  display: flex;
+  flex-wrap: wrap;
+}
+.day_holder{
+  padding: 35px;
+  width: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* OTHER STYLING BELOW */
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div {
+  display: flex;
+  justify-content: center;
+}
+
+.div__line {
+  border-bottom-color: rgb(222,222,222);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  margin: 10px 177px;
+  width: 110px;
+}
+
+.header {
+  margin: 5px auto;
+  width: 45px;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+}
+
+.title {
+  color: rgb(51, 51, 51);
+  display: block;
+  margin: 10px;
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  width: 400px;
+}
+
+.form__container {
+  margin: 0 auto;
+  width: 268px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border-color: rgb(221, 221, 221);
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 2px;
+  box-sizing: border-box;
+  color: rgb(17, 17, 17);
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 7px;
+  min-height: 48px;
+  padding: 8px 16px;
+  width: 268px;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 3px rgb(51, 51, 51);
+  outline: 0;
+} */
+
+
+
+
+
+
+
+
+/* .datepicker_input{
+  width: 300px;
+  height: 35px;
+
+  border-radius: 20px;
+
+  background: white;
+  border: none;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  cursor: pointer;
+} */
