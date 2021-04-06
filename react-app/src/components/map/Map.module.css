@@ -23,13 +23,24 @@
 .results_container{
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .6);
   width: 40%;
+  height: 500px;
   height: 100%;
 
-  background-color: #f6f1ee;
+  /* min-height: max-content; */
+  /* height: min-content; */
+
   background-color: white;
+  background-color: rgba(246,241,238, 1);
 
   z-index: 1;
+
+
+  overflow: auto;
+
+  /* Flip the scrollbar */
+  direction: rtl;
 }
+
 /* height: '90vh', width: '70%'  */
 /* .map {
 } */

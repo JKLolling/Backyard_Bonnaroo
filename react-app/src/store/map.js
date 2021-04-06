@@ -1,4 +1,5 @@
 const SET_CENTER = 'map/SetCenter';
+const SET_DATE ='map/SetDate'
 
 export const mapSetCenter = (center) => {
 	return {
@@ -7,6 +8,13 @@ export const mapSetCenter = (center) => {
 	};
 };
 
+export const mapSetDate = (date) => {
+  return {
+    type: SET_DATE,
+    date
+  }
+}
+
 
 const initialState = {
   center: {
@@ -14,6 +22,7 @@ const initialState = {
     lng: -73.9758
   },
   zoom: 15,
+  date: null
 };
 
 const mapReducer = (state = initialState, action) => {
@@ -22,6 +31,9 @@ const mapReducer = (state = initialState, action) => {
 		case SET_CENTER:
 			newState = Object.assign({}, state, { center: {...action.center} });
 			return newState;
+    case SET_DATE:
+      newState = Object.assign({}, state, {date: action.date})
+      return newState
 		default:
 			return state;
 	}

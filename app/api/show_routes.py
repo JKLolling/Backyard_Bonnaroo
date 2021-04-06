@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from datetime import datetime
 from app.models import Show
 from sqlalchemy.sql import text
 
@@ -7,8 +8,15 @@ show_routes = Blueprint('shows', __name__)
 
 @show_routes.route('/', methods=['POST'])
 def shows():
-    lat = request.get_json()['lat']
-    lng = request.get_json()['lng']
+    center = request.get_json()['center']
+    lat = center['lat']
+    lng = center['lng']
+
+    date = request.get_json()['date']
+
+    if(not date):
+      date = datetime.date(datetime.now())
+      date = str(date)
 
     query = f"""
             SELECT s.id, v.distance
@@ -18,7 +26,7 @@ def shows():
                     cos( radians( s.location_lng ) - radians({lng}) ) + sin( radians({lat}) ) * sin( radians( s.location_lat ) ) )
                         )
                 ) v(distance)
-            WHERE v.distance < 25
+            WHERE v.distance < 25 AND s.date = '{date}'
             ORDER BY s.date
             LIMIT 20; """
 
@@ -26,13 +34,3 @@ def shows():
     shows = Show.query.from_statement(query).all()
 
     return {"shows": [show.to_dict() for show in shows]}
-
-
-
-# sql = "SELECT *, ( 6371 * acos( cos( radians(" . $db->real_escape_string($lat) . ") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(" . $db->real_escape_string($lng) . ") ) + sin( radians(" . $db->real_escape_string($lat) . ") ) * sin( radians( lat ) ) ) ) AS distance FROM your_table_name HAVING distance < 15";
-
-
-# @user_routes.route('/<int:id>')
-# def user(id):
-#     user = User.query.get(id)
-#     return user.to_dict()

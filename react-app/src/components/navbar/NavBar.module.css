@@ -106,16 +106,58 @@ nav li {
   border-radius: .5em;
 }
 
+/* .nav_search_holder{
+  background-color: rgba(246,241,238, 1);
+
+  border-radius: 50px;
+
+  z-index: 1;;
+
+  width: 30vw;
+  height: 30px;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 2px 5px black;
+
+  transition: all .3s ease-in-out;
+} */
+.nav_search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20vw;
+  height: 30px;
+
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+
+  position: relative;
+  left: -10%;
+
+  background-color: white;
+
+  /* text-align: center; */
+  font-size: 1rem;
+}
+
+
 
 
 
 .logo_div a{
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .logo{
   height: 40px;
+
+  position: absolute;
+  left: 50%;
 }
 
 

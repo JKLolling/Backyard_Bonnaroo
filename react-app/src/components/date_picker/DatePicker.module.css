@@ -1,0 +1,246 @@
+.datepicker_parent {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently */
+}
+
+/* MODAL CONTENT and OVERLAY STYLING */
+.content {
+  position: absolute;
+  top: 50px;
+
+  margin: 15px;
+
+  background-color: rgba(246,241,238, 1);
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* height: 30vh; */
+  width: 37vw;
+
+  padding: 20px 10px 24px;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* All the modal content */
+.container{
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.year_controls{
+  padding-top: 10px;
+  width: 20%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.year {
+  font-size: 1.5em;
+}
+
+.month_controls{
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+/* .calendar_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px 0px;
+} */
+
+
+.calendar{
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  width: 80%;
+  height: 40vh;
+}
+
+.day_headers_row{
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+
+  font-size: .8rem;
+}
+.day_header{
+  flex-basis: 12.5%;
+
+  /* Center the day headers inside their container */
+  display: flex;
+  justify-content: center;
+}
+
+.days_holder{
+  display: flex;
+  flex-wrap: wrap;
+
+  height: 100%;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.day_holder{
+  height: 12%;
+
+  flex-basis: 12.5%;
+
+  /* margin-bottom: 10px; */
+
+  /* Center the text/date within its container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: black;
+  border: 1px solid transparent;
+}
+.valid:hover{
+  /* background-color: tomato;
+
+  box-shadow: 2px 2px 3px 0px grey;
+  color: white;
+  border-radius: 1000px;
+  cursor: pointer; */
+
+  background-color: rgba(246,241,238, 1);;
+  background-color: rgb(248, 123, 101);
+  box-shadow: 1px 1px 3px 0px grey;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.invalid{
+  /* background-color: lightgrey */
+  color: grey;
+}
+
+.overlay {
+  background-color: rgba(51, 51, 51, 0.3);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
+}
+
+/* OTHER STYLING BELOW */
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div {
+  display: flex;
+  justify-content: center;
+}
+
+.div__line {
+  border-bottom-color: rgb(222,222,222);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  margin: 10px 177px;
+  width: 110px;
+}
+
+.header {
+  margin: 5px auto;
+  width: 45px;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+}
+
+.title {
+  color: rgb(51, 51, 51);
+  display: block;
+  margin: 10px;
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  width: 400px;
+}
+
+.form__container {
+  margin: 0 auto;
+  width: 268px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border-color: rgb(221, 221, 221);
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 2px;
+  box-sizing: border-box;
+  color: rgb(17, 17, 17);
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 7px;
+  min-height: 48px;
+  padding: 8px 16px;
+  width: 268px;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 3px rgb(51, 51, 51);
+  outline: 0;
+} */
+
+
+
+
+
+
+
+
+/* .datepicker_input{
+  width: 300px;
+  height: 35px;
+
+  border-radius: 20px;
+
+  background: white;
+  border: none;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  cursor: pointer;
+} */
