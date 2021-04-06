@@ -18,8 +18,9 @@
 
   display: flex;
   justify-content: center;
+  align-items: center;
 
-  height: 30vh;
+  /* height: 30vh; */
   width: 37vw;
 
   padding: 20px 10px 24px;
@@ -27,19 +28,49 @@
   outline: none;
 }
 
-.overlay {
-  background-color: rgba(51, 51, 51, 0.3);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 5;
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.year_controls{
+  padding-top: 10px;
+  width: 20%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.year {
+  font-size: 1.5em;
+}
+
+.month_controls{
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+.calendar_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px 0px;
+}
+
 
 .calendar{
   width: 80%;
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
 
   display: flex;
   flex-direction: column;
@@ -51,8 +82,6 @@
   display: flex;
   justify-content: space-between;
 
-  /* font-size: 1em; */
-
   margin: 10px;
 }
 .day_header{
@@ -63,18 +92,43 @@
 .days_holder{
   display: flex;
   flex-wrap: wrap;
+
+  justify-content: space-between;
 }
+
+
 .day_holder{
   padding: 20px 35px;
-  width: 10px;
+  width: 5px;
 
+  /* Center the text */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: black;
+  border: 1px solid transparent;
 }
-.day_holder:hover{
+.valid:hover{
   background-color: tomato;
+  border: 1px solid black;
+  border-radius: 100px;
   cursor: pointer;
+}
+
+.invalid{
+  /* background-color: lightgrey */
+  color: grey;
+}
+
+.overlay {
+  background-color: rgba(51, 51, 51, 0.3);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 5;
 }
 
 /* OTHER STYLING BELOW */

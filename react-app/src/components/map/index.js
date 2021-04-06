@@ -19,7 +19,6 @@ function Map(){
   const storeMapData = useSelector(store => store.map)
   const params = useParams().mapParams
 
-  console.log(params)
   // Get the shows in the area
   useEffect(() => {
     if (!storeMapData?.center) return;
@@ -28,7 +27,7 @@ function Map(){
       const res = await fetch('/api/shows/', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(storeMapData.center)
+        body: JSON.stringify(storeMapData)
       })
       const data = await res.json()
       // setShows(data.shows)

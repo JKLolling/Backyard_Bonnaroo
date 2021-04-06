@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import Modal from 'react-modal';
-// import { closeModalLogin, openModalLogin, openModalSignUp} from '../../store/modal';
+
+import {mapSetDate} from '../../store/map'
 
 
 //Styling
@@ -9,15 +10,16 @@ import c from './DatePicker.module.css'
 
 const DatePicker = () => {
 
-Modal.setAppElement('#root');
+  Modal.setAppElement('#root');
 
+  const dispatch = useDispatch()
 
   const [showModal, setShowModal] = useState(true)
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
   const [selectedYear, setSelectedYear] = useState((new Date()).getFullYear())
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
-  const [selectedDate, setSelectedDate] = useState(null)
-  // const [selectedDay, setSelectedDay ]
+  // const [selectedDate, setSelectedDate] = useState(null)
+
 
   const openModal = () => {
     setShowModal(true)
@@ -65,11 +67,66 @@ Modal.setAppElement('#root');
   }, [selectedMonth, selectedYear])
 
 
+  const increaseMonth = () => {
+    if(selectedMonth === 11){
+      setSelectedMonth(0)
+      increaseYear()
+    } else{
+      setSelectedMonth(() => selectedMonth + 1)
+    }
+  }
+  const increaseYear = () => {
+    setSelectedYear(() => selectedYear + 1)
+  }
+  const decreaseMonth = () => {
+    if(selectedMonth === 0){
+      setSelectedMonth(11)
+      decreaseYear()
+    } else{
+      setSelectedMonth(() => selectedMonth - 1)
+    }
+  }
+  const decreaseYear = () => {
+    setSelectedYear(() => selectedYear - 1)
+  }
+
+
   const dateClicked = (e) => {
-    const temp = new Date(selectedYear, selectedMonth, e.target.innerText)
-    setSelectedDate(temp)
+    if (!e.target.className.includes('invalid')){
+      let temp = new Date(selectedYear, selectedMonth, e.target.innerText)
+
+      let month = temp.getMonth() + 1
+      if (month < 10){
+        month = `0${month}`
+      }
+      let year = temp.getFullYear()
+      let day = temp.getDate()
+      if (day < 10){
+        day = `0${day}`
+      }
+
+      let string_date = `${year}-${month}-${day}`
+      dispatch(mapSetDate(string_date))
+    }
+
+    // setSelectedDate(temp)
+  }
+
+  const getDayClass = (i, day) => {
+    let style;
+    if (i <= 10 && day >= 20){
+      style = `${c.day_holder} ${c.invalid}`
+    }
+    else if (i >=20 && day < 10){
+      style = `${c.day_holder} ${c.invalid}`
+    }
+    else
+      style =`${c.day_holder} ${c.valid}`
+
+    return style
   }
   const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
+  const monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   return (
     <>
       <div onClick={openModal}>
@@ -83,15 +140,33 @@ Modal.setAppElement('#root');
         shouldFocusAfterRender={true}
       >
         <div className={c.container}>
-          <h3 className={c.title}>Pick a date</h3>
-          {/* <div className={c.form__container}> */}
-            {/* <form onSubmit={handleSubmit} className={c.form}> */}
-          <div className={c.picker_parent}>
-            <input
-              className={c.input}
-              type='date'
-              name='date'
-            />
+          <div className={c.year_controls}>
+            <div className={c.year_left_chev}
+              onClick={decreaseYear}
+            >
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div className={c.year}>
+              {selectedYear}
+            </div>
+            <div className={c.year_right_controls}
+              onClick={increaseYear}
+            >
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          <div className={c.month_controls}>
+            <div className={c.month_left_chev} onClick={decreaseMonth}>
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div className={c.month}>
+              {monthMap[selectedMonth]}
+            </div>
+            <div className={c.month_right_controls} onClick={increaseMonth}>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          <div className={c.calendar_container}>
             <div className={c.calendar}>
               <div className={c.day_headers}>
                 {days_header.map(day => (
@@ -104,9 +179,10 @@ Modal.setAppElement('#root');
                 ))}
               </div>
               <div className={c.days_holder}>
-                {currentCalendarSlice.map(day =>
+                {currentCalendarSlice.map((day, i) =>
                   <div
-                    className={c.day_holder}
+                    key={`$day}${i}`}
+                    className={getDayClass(day, i)}
                     onClick={dateClicked}
                   >
                     {day}
@@ -115,8 +191,6 @@ Modal.setAppElement('#root');
               </div>
             </div>
           </div>
-            {/* </form> */}
-          {/* </div> */}
         </div>
       </Modal>
     </>
