@@ -14,7 +14,7 @@ const DatePicker = () => {
 
   const dispatch = useDispatch()
 
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
   const [selectedYear, setSelectedYear] = useState((new Date()).getFullYear())
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
@@ -144,7 +144,7 @@ const DatePicker = () => {
             <div className={c.year_left_chev}
               onClick={decreaseYear}
             >
-              <i class="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left"></i>
             </div>
             <div className={c.year}>
               {selectedYear}
@@ -152,18 +152,18 @@ const DatePicker = () => {
             <div className={c.year_right_controls}
               onClick={increaseYear}
             >
-              <i class="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right"></i>
             </div>
           </div>
           <div className={c.month_controls}>
             <div className={c.month_left_chev} onClick={decreaseMonth}>
-              <i class="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left"></i>
             </div>
             <div className={c.month}>
               {monthMap[selectedMonth]}
             </div>
             <div className={c.month_right_controls} onClick={increaseMonth}>
-              <i class="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right"></i>
             </div>
           </div>
           {/* <div className={c.calendar_container}> */}

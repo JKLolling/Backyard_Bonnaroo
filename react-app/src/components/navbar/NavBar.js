@@ -6,6 +6,10 @@ import LogoutButton from '../auth/LogoutButton';
 import DatePicker from '../date_picker'
 
 
+// Modal stuff
+import LoginFormModal from '../loginmodal'
+import SignupFormModal from '../signupmodal'
+
 //Styling
 import c from './NavBar.module.css'
 
@@ -36,9 +40,11 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             <NavLink to="/login" exact={true} activeClassName="active">
               Login
             </NavLink>
+            <LoginFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
             <NavLink to="/sign-up" exact={true} activeClassName="active">
               Sign Up
             </NavLink>
+            <SignupFormModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>
           </div>
         </li>
       </>
@@ -68,14 +74,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             </NavLink>
           </div>
           {pathIsMap && <div className={c.nav_search_holder}>
-              {/* <input
-                type='search'
-                className={c.nav_search}
-                placeholder={'hey'}
-                ></input> */}
-              <DatePicker
-
-              />
+              <DatePicker/>
           </div>}
         </li>
         <li className={c.logo_li}>
