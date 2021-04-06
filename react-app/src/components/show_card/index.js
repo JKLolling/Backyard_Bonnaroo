@@ -25,6 +25,8 @@ const ShowCard = ({info}) => {
         body: JSON.stringify(info.id)
       })
       const data = await res.json()
+      // Display some kind of success message to the user
+      // Also, be sure to check that they haven't already reserved this spot
       console.log(data)
     }
   }

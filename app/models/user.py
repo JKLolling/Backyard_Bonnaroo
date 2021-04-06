@@ -39,4 +39,5 @@ class User(db.Model, UserMixin):
       "id": self.id,
       "username": self.username,
       "email": self.email,
+      "reservations": [show.to_dict() for show in self.reserved_shows]
     }

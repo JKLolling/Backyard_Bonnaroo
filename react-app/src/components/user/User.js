@@ -17,7 +17,6 @@ function User() {
     (async () => {
       const response = await fetch(`/api/users/${userId}`);
       const user = await response.json();
-      console.log(user)
       setUser(user);
     })();
   }, [userId]);
@@ -26,6 +25,9 @@ function User() {
     return null;
   }
 
+  // if (user?.reservations){
+  //   console.log(user?.reservations[0]?.artist.name)
+  // }
   return (
     <div className={c.page_parent}>
       <div className={c.page_container}>
@@ -35,7 +37,13 @@ function User() {
         </div>
         <div className={c.content}>
             <div className={c.reserved_shows}>
-              List of reserved shows
+              {user.reservations && user.reservations.map(show => (
+                <div
+                  key={`${show.artist}${show.date}`}
+                >
+                  {show.artist.name}
+                </div>
+              ))}
             </div>
             <div className={c.reviews}>
               List of Reviews
