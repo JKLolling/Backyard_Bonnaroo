@@ -114,10 +114,10 @@ const DatePicker = () => {
 
   const getDayClass = (i, day) => {
     let style;
-    if (i <= 10 && day >= 20){
+    if (i <= 14 && day >= 20){
       style = `${c.day_holder} ${c.invalid}`
     }
-    else if (i >=20 && day < 10){
+    else if (i >=20 && day < 7){
       style = `${c.day_holder} ${c.invalid}`
     }
     else
@@ -166,9 +166,9 @@ const DatePicker = () => {
               <i class="fas fa-chevron-right"></i>
             </div>
           </div>
-          <div className={c.calendar_container}>
+          {/* <div className={c.calendar_container}> */}
             <div className={c.calendar}>
-              <div className={c.day_headers}>
+              <div className={c.day_headers_row}>
                 {days_header.map(day => (
                   <span
                     key={day}
@@ -190,7 +190,7 @@ const DatePicker = () => {
                 )}
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       </Modal>
     </>
