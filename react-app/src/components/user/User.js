@@ -21,8 +21,30 @@ function User() {
     })();
   }, [userId]);
 
-  if (!user) {
+  if (!user.id) {
     return null;
+  } else {
+    console.log(user)
+  }
+
+  const cancelReservation = async (e) => {
+
+    let temp = e.currentTarget.innerText
+
+    temp = temp.split('|')
+    console.log(temp)
+    temp = {
+      artist:temp[0],
+      time:temp[2],
+      date:temp[3]
+    }
+    console.log(temp)
+    const res = await fetch(`/api/users/${user.id}/reservations`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(temp)
+    })
+    const data = await res.json()
   }
 
   // if (user?.reservations){
@@ -38,10 +60,21 @@ function User() {
         <div className={c.content}>
             <div className={c.reserved_shows}>
               {user.reservations && user.reservations.map(show => (
-                <div
-                  key={`${show.artist}${show.date}`}
-                >
-                  {show.artist.name}
+                <div  key={`${show.artist}${show.date}`} onClick={cancelReservation}>
+                  <div>
+                    {show.artist.name}
+                    |
+                    {show.address}
+                    |
+                    {show.time}
+                    |
+                    {show.date}
+                    |
+                    {show.cost}
+                  </div>
+                  <div>
+                    <button>Cancel reservation</button>
+                  </div>
                 </div>
               ))}
             </div>

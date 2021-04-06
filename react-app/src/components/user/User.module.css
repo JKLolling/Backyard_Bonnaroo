@@ -11,7 +11,6 @@
   justify-content: center;
   align-items: center; */
   background-color: rgba(246,241,238, 1);
-  z-index: -1;
 }
 
 .banner{
@@ -24,14 +23,12 @@
       position: relative;
       top: -140px;
       width: 55vw;
-
-      z-index: -1;
-
     }
 
     .title{
-      color: white;
+      position: relative;
       z-index: 1;
+      color: white;
 
       font-size: 3.5em;
 
