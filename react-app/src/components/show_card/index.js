@@ -14,10 +14,18 @@ const ShowCard = ({info}) => {
 
   const storeUserData = useSelector(store => store.session.user)
 
-
-  const makeReservation = () => {
+  const makeReservation = async () => {
+    console.log(storeUserData)
     if (!storeUserData){
       dispatch(openModalLogin())
+    } else {
+      const res = await fetch(`/api/users/${storeUserData.id}/reservations`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(info.id)
+      })
+      const data = await res.json()
+      console.log(data)
     }
   }
 

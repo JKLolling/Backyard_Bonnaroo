@@ -48,6 +48,7 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
     if (!user.errors) {
       setAuthenticated(true);
       dispatch(setUser(user))
+      dispatch(closeModalLogin())
     } else {
       setErrors(user.errors);
     }

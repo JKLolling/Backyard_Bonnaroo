@@ -3,6 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 
+
+reservation_pairs = db.Table('reservation_pairs',
+    db.Column('show_id', db.Integer, db.ForeignKey('shows.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
+)
+
 class User(db.Model, UserMixin):
   __tablename__ = 'users'
 
@@ -11,6 +17,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
   created_on = db.Column(db.DateTime, default=datetime.now())
+  reserved_shows = db.relationship('Show', secondary=reservation_pairs, back_populates='attendees')
 
 
   @property
@@ -31,5 +38,5 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
+      "email": self.email,
     }

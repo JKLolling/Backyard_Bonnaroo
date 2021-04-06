@@ -1,5 +1,6 @@
-from .db import db
 from datetime import datetime
+from .db import db
+from .user import reservation_pairs
 
 class Show(db.Model):
   __tablename__ = 'shows'
@@ -16,6 +17,7 @@ class Show(db.Model):
   artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
 
   artist = db.relationship("Artist", back_populates="shows")
+  attendees = db.relationship('User', secondary=reservation_pairs, back_populates='reserved_shows')
 
 
   def to_dict(self):
