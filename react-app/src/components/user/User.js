@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux'
+
+// Redux stuff
+import {asyncRemoveShow} from '../../store/session'
 
 //Styling
 import c from './User.module.css'
 
 function User() {
   const [user, setUser] = useState({});
+
   // Notice we use useParams here instead of getting the params
   // From props.
   const { userId }  = useParams();
+
+  const storeData = useSelector(store => store.session)
+  console.log('StoreData', storeData)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!userId) {
@@ -24,27 +33,33 @@ function User() {
   if (!user.id) {
     return null;
   } else {
-    console.log(user)
+    // console.log(user)
   }
 
   const cancelReservation = async (e) => {
 
+    if (e.target.innerText !== 'Cancel Reservation'){
+      return;
+    }
+
     let temp = e.currentTarget.innerText
 
     temp = temp.split('|')
-    console.log(temp)
     temp = {
       artist:temp[0],
       time:temp[2],
       date:temp[3]
     }
-    console.log(temp)
-    const res = await fetch(`/api/users/${user.id}/reservations`, {
-      method: 'DELETE',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(temp)
-    })
-    const data = await res.json()
+
+    const res = await dispatch(asyncRemoveShow(temp, user.id))
+    // const data = await res.json()
+    // console.log(data)
+    // const res = await fetch(`/api/users/${user.id}/reservations`, {
+    //   method: 'DELETE',
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: JSON.stringify(temp)
+    // })
+    // const data = await res.json()
   }
 
   // if (user?.reservations){
@@ -73,7 +88,7 @@ function User() {
                     {show.cost}
                   </div>
                   <div>
-                    <button>Cancel reservation</button>
+                    <button className={c.cancel_button}>Cancel Reservation</button>
                   </div>
                 </div>
               ))}

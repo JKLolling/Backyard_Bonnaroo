@@ -34,6 +34,10 @@ class User(db.Model, UserMixin):
     return check_password_hash(self.password, password)
 
 
+
+  # keys = [show.to_dict()['id'] for show in self.reserved_shows]
+  # values = [show.to_dict() for show in self.reserved_shows]
+
   def to_dict(self):
     return {
       "id": self.id,

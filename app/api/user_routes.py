@@ -30,7 +30,8 @@ def make_reservation(id):
 
     db.session.commit()
 
-    return show.to_dict()
+    # return show.to_dict()
+    return user.to_dict()
 
 @user_routes.route('/<int:id>/reservations', methods=['DELETE'])
 @login_required
