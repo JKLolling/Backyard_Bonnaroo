@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import {useSelector,useDispatch} from 'react-redux'
 
 // Redux stuff
@@ -9,35 +8,14 @@ import {asyncRemoveShow} from '../../store/session'
 import c from './User.module.css'
 
 function User() {
-  // const [storeUserData, setUser] = useState({});
-
-  // Notice we use useParams here instead of getting the params
-  // From props.
-  const { userId }  = useParams();
-
   const storeUserData = useSelector(store => store.session.user)
-  console.log('StoreData', storeUserData)
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   if (!userId) {
-  //     return
-  //   }
-  //   (async () => {
-  //     const response = await fetch(`/api/users/${userId}`);
-  //     const storeUserData = await response.json();
-  //     console.log('fetch request', storeUserData)
-  //     setUser(storeUserData);
-  //   })();
-  // }, [userId]);
 
   if (!storeUserData.id) {
     return null;
-  } else {
-    // console.log(storeUserData)
   }
-
   const cancelReservation = async (e) => {
 
     if (e.target.innerText !== 'Cancel Reservation'){
@@ -53,20 +31,9 @@ function User() {
       date:temp[3]
     }
 
-    const res = await dispatch(asyncRemoveShow(temp, storeUserData.id))
-    // const data = await res.json()
-    // console.log(data)
-    // const res = await fetch(`/api/users/${storeUserData.id}/reservations`, {
-    //   method: 'DELETE',
-    //   headers: {'Content-Type': 'application/json'},
-    //   body: JSON.stringify(temp)
-    // })
-    // const data = await res.json()
+    await dispatch(asyncRemoveShow(temp, storeUserData.id))
   }
 
-  // if (storeUserData?.reservations){
-  //   console.log(storeUserData?.reservations[0]?.artist.name)
-  // }
   return (
     <div className={c.page_parent}>
       <div className={c.page_container}>

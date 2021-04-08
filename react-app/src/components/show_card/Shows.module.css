@@ -2,7 +2,7 @@
   box-sizing: border-box;
 
   width: 100%;
-  height: 400px;
+  height: 300px;
 
   background-color: rgba(246,241,238, 1);
 
@@ -20,14 +20,68 @@
 }
 
 .left_side{
+  height: 100%;
+
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+  padding: 20px 0px;
 }
 
-.band_photo{
-  width: 400px;
 
-  border-radius: 10px;
+    .image_container{
+      max-height: 90%;
+
+      border-radius: 10px;
+      overflow: hidden;
+    }
+      .band_photo{
+        width: 350px;
+
+      }
+
+.right_side{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding: 20px;
 }
+
+    .artist_name{
+      font-size: 2em;
+    }
+
+    .address {
+      font-size: .9em;
+      color: grey;
+
+      padding-bottom: 20px;
+    }
+
+    .time{
+      font-size: .9em;
+      /* color: grey; */
+    }
+
+    .cost{
+      font-size: .9em;
+
+      padding-bottom: 20px;
+      /* color: grey; */
+    }
+
+    .description{
+      padding-bottom: 20px;
+      color: grey;
+    }
+
+    .reservation_div{
+      position: relative;
+      bottom: -20%;
+    }

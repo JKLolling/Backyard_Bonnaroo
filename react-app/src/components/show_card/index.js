@@ -14,7 +14,6 @@ const ShowCard = ({info}) => {
   const dispatch = useDispatch()
 
   const storeUserData = useSelector(store => store.session.user)
-  console.log(storeUserData?.reservations)
 
   const makeReservation = async (e) => {
     if (!storeUserData){
@@ -42,11 +41,23 @@ const ShowCard = ({info}) => {
       }
     }
   }
-  // if (storeUserData?.reservations && storeUserData.reservations.includes)
+
+  let time
+  if (info?.time){
+    let m = 'AM'
+    let [hours, minutes] = info.time.split(':')
+    if (hours > 12){
+      hours -= 12
+      m = 'PM'
+    }
+    time = `${hours}:${minutes} ${m}`
+  }
+
+
   return (
     <div className={c.card_holder}>
       <div className={c.left_side}>
-        <div>
+        <div className={c.image_container}>
           <img src={info.artist.banner_URL} alt='band' className={c.band_photo}></img>
         </div>
         <div>
@@ -54,22 +65,22 @@ const ShowCard = ({info}) => {
         </div>
       </div>
       <div className={c.right_side}>
-        <div>
+        <div className={c.artist_name}>
           {info.artist.name}
         </div>
-        <div>
+        <div className={c.address}>
           {info.address}
         </div>
-        <div>
-          {info.time}
+        <div className={c.time}>
+          {time}
         </div>
-        <div>
-          {info.cost}
+        <div className={c.cost}>
+          Cost: ${info.cost}
         </div>
-        <div>
+        <div className={c.description}>
           {info.description}
         </div>
-        <div>
+        <div className={c.reservation_div}>
           <button onClick={makeReservation}>
             {button_text}
           </button>

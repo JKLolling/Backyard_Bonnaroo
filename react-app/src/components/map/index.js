@@ -115,6 +115,7 @@ function Map(){
                   key={show.address+show.date}
                   lat={show.location_lat}
                   lng={show.location_lng}
+                  show_data={show}
                 />
               ))}
             </GoogleMapReact>

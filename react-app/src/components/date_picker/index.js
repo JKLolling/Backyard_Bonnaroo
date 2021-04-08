@@ -107,6 +107,7 @@ const DatePicker = () => {
 
       let string_date = `${year}-${month}-${day}`
       dispatch(mapSetDate(string_date))
+      closeModal()
     }
 
     // setSelectedDate(temp)
