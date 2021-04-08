@@ -9,31 +9,33 @@ import {asyncRemoveShow} from '../../store/session'
 import c from './User.module.css'
 
 function User() {
-  const [user, setUser] = useState({});
+  // const [storeUserData, setUser] = useState({});
 
   // Notice we use useParams here instead of getting the params
   // From props.
   const { userId }  = useParams();
 
-  const storeData = useSelector(store => store.session)
-  console.log('StoreData', storeData)
+  const storeUserData = useSelector(store => store.session.user)
+  console.log('StoreData', storeUserData)
+
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (!userId) {
-      return
-    }
-    (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
-    })();
-  }, [userId]);
+  // useEffect(() => {
+  //   if (!userId) {
+  //     return
+  //   }
+  //   (async () => {
+  //     const response = await fetch(`/api/users/${userId}`);
+  //     const storeUserData = await response.json();
+  //     console.log('fetch request', storeUserData)
+  //     setUser(storeUserData);
+  //   })();
+  // }, [userId]);
 
-  if (!user.id) {
+  if (!storeUserData.id) {
     return null;
   } else {
-    // console.log(user)
+    // console.log(storeUserData)
   }
 
   const cancelReservation = async (e) => {
@@ -51,10 +53,10 @@ function User() {
       date:temp[3]
     }
 
-    const res = await dispatch(asyncRemoveShow(temp, user.id))
+    const res = await dispatch(asyncRemoveShow(temp, storeUserData.id))
     // const data = await res.json()
     // console.log(data)
-    // const res = await fetch(`/api/users/${user.id}/reservations`, {
+    // const res = await fetch(`/api/users/${storeUserData.id}/reservations`, {
     //   method: 'DELETE',
     //   headers: {'Content-Type': 'application/json'},
     //   body: JSON.stringify(temp)
@@ -62,19 +64,19 @@ function User() {
     // const data = await res.json()
   }
 
-  // if (user?.reservations){
-  //   console.log(user?.reservations[0]?.artist.name)
+  // if (storeUserData?.reservations){
+  //   console.log(storeUserData?.reservations[0]?.artist.name)
   // }
   return (
     <div className={c.page_parent}>
       <div className={c.page_container}>
         <div className={c.banner}>
-          <div className={c.title}>Welcome {user.username}</div>
+          <div className={c.title}>Welcome {storeUserData.username}</div>
           <img src='../static/guitree.jpg' className={c.banner_img} alt='profile banner'></img>
         </div>
         <div className={c.content}>
             <div className={c.reserved_shows}>
-              {user.reservations && user.reservations.map(show => (
+              {storeUserData.reservations && storeUserData.reservations.map(show => (
                 <div  key={`${show.artist}${show.date}`} onClick={cancelReservation}>
                   <div>
                     {show.artist.name}
