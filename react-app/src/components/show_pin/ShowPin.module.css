@@ -4,6 +4,66 @@
   transform: translate(-50%, -100%);
 }
 
-.hovered{
-  width: 100px;
-}
+  .hovered{
+    width: 100px;
+  }
+
+  .hidden{
+    display: none;
+  }
+  .details{
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+
+    position: absolute;
+    position: relative;
+    transform: translate(-50%, -150%);
+
+    z-index: 10;
+
+    cursor: pointer;
+  }
+
+  .modal{
+      position: absolute;
+      top: 100px;
+      right: 0px;
+
+      margin: 15px;
+
+      background-color: rgba(246,241,238, 1);
+      background-color: red;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 100px;
+      width: 100px;
+
+      padding: 20px 10px 24px;
+      border-radius: 8px;
+      outline: none;
+    }
+    .overlay {
+      background-color: rgba(51, 51, 51, 0.001);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 5;
+    }
+      .content{
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+  .hovered_details{
+    transform: translate(-50%, -200%);
+  }

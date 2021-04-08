@@ -16,11 +16,12 @@ const ShowCard = ({info}) => {
   const storeUserData = useSelector(store => store.session.user)
 
   const makeReservation = async (e) => {
+
     if (!storeUserData){
       dispatch(openModalLogin())
-    } else if (e.target.innerText === 'Reserve a Spot!') {
+    } else if (e.target.innerText.toUpperCase() === 'RESERVE A SPOT!') {
       await dispatch(asyncMakeReservation(info.id, storeUserData.id))
-
+      console.log('hiiiii')
       // const res = await fetch(`/api/users/${storeUserData.id}/reservations`, {
       //   method: 'POST',
       //   headers: {'Content-Type': 'application/json'},
@@ -32,12 +33,14 @@ const ShowCard = ({info}) => {
     }
   }
 
+  let button_style = c.reservation_button
   let button_text = 'Reserve a Spot!'
   if (storeUserData?.reservations){
     for (let i = 0; i < storeUserData.reservations.length; i++){
       let show = storeUserData.reservations[i]
       if(info.id === show.id){
         button_text = 'You have already reserved this show'
+        button_style = c.already_registered_button
       }
     }
   }
@@ -81,7 +84,7 @@ const ShowCard = ({info}) => {
           {info.description}
         </div>
         <div className={c.reservation_div}>
-          <button onClick={makeReservation}>
+          <button onClick={makeReservation} className={button_style}>
             {button_text}
           </button>
         </div>
