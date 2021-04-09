@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 
 import c from './ShowPin.module.css'
 
@@ -6,7 +6,7 @@ const ShowPin = ({$hover, show_data, mapsReference}) => {
   const detailsRef = useRef()
   const pinRef = useRef()
 
-  const [detailStyle, setDetailStyle] = useState(c.hidden)
+
 
 
   // if (mapsReference && detailsRef.current) {
@@ -17,32 +17,8 @@ const ShowPin = ({$hover, show_data, mapsReference}) => {
   const detail_style = $hover ? c.hovered_details : c.hidden
 
   const openDetails = (e) => {
-    // setDetailStyle(c.details)
-    // let hovered_detail = `${c.hovered_details} ${c.details}`
-    // if (detailsRef.current)
-    //   detailsRef.current.className = hovered_detail
-  }
-
-
-  // let detail_style
-  // if (detailsRef?.current){
-  //   let hovered_detail = $hover ? c.hovered_details : c.hidden
-  //   if (hovered_detail !== detailStyle){
-  //     console.log(hovered_detail)
-  //     setDetailStyle(hovered_detail)
-  //   }
-  //   // detailsRef.current.className = hovered_detail
-  // }
-
-
-  const setActiveShowCard = () => {
-    console.log(show_data)
-    // if (mapsReference) {
-    //   console.log('hi')
-    //   mapsReference.OverlayView.preventMapHitsFrom(detailsRef.current);
-    //   mapsReference.OverlayView.preventMapHitsAndGesturesFrom(pinRef.current);
-    //   console.log(detailsRef.current)
-    // }
+    let card = document.getElementById(show_data.id)
+    card.scrollIntoView();
   }
 
 
@@ -68,7 +44,6 @@ const ShowPin = ({$hover, show_data, mapsReference}) => {
       <div
         className={detail_style}
         ref={detailsRef}
-        onClick={setActiveShowCard}
       >
         <div className={c.artist}>
           {show_data.artist.name}

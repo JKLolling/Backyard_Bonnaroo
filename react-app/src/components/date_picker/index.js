@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch} from 'react-redux';
 import Modal from 'react-modal';
 
@@ -20,12 +20,17 @@ const DatePicker = () => {
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
   // const [selectedDate, setSelectedDate] = useState(null)
 
+  const inputRef = useRef()
 
   const openModal = () => {
     setShowModal(true)
+    inputRef.current.style.width = '100%'
   }
-  const closeModal = (e) => {
+  const closeModal = () => {
     setShowModal(false)
+    inputRef.current.style.width = '50%'
+    inputRef.current.blur()
+    console.log(inputRef.current === document.activeElement, document.activeElement)
   }
 
   const getNumDaysInMonth = (month_num, year) => {
@@ -131,7 +136,13 @@ const DatePicker = () => {
   return (
     <>
       <div onClick={openModal}>
-        dates
+        <input
+          type='text'
+          className={c.date_input}
+          placeholder='When'
+          ref={inputRef}
+          readOnly={true}
+        />
       </div>
       <Modal
         isOpen={showModal}

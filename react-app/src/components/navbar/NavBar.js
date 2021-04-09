@@ -1,10 +1,9 @@
 import React, {useEffect, useRef} from 'react';
-import { NavLink, useLocation} from 'react-router-dom';
+import { NavLink, useLocation, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux'
+
 import LogoutButton from '../auth/LogoutButton';
-
 import DatePicker from '../date_picker'
-
 
 // Modal stuff
 import LoginFormModal from '../loginmodal'
@@ -19,7 +18,19 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
 
   const storeUserData = useSelector(store => store.session)
   const navContentRef = useRef()
+  const history = useHistory()
 
+  const enterPressed = (e) => {
+    const keyCode = e.keyCode || e.which
+    if (keyCode === 13){
+      let searchParams = new URLSearchParams();
+      searchParams.append('address', e.target.value)
+      // searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
+      searchParams = searchParams.toString()
+
+      history.push(`/map/${searchParams}`)
+    }
+  }
 
   useEffect(() => {
     if (pathIsMap){
@@ -73,8 +84,14 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
               Home
             </NavLink>
           </div>
-          {pathIsMap && <div className={c.nav_search_holder}>
-              <DatePicker/>
+          {pathIsMap && <div className={c.search_params}>
+                <input
+                  type='search'
+                  className={c.nav_search}
+                  placeholder='Where'
+                  onKeyPress={enterPressed}
+                />
+                <DatePicker/>
           </div>}
         </li>
         <li className={c.logo_li}>

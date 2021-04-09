@@ -7,6 +7,33 @@
   user-select: none;           /* Non-prefixed version, currently */
 }
 
+
+.date_input {
+  box-sizing: border-box;
+  width: 50px;
+  width: 50%;
+  height: 20px;
+
+  background-color: white;
+
+  transform: translate(-5%, 5%);
+
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  margin: 0px;
+
+
+  border: 1px solid grey;
+  text-align: right;
+  padding-right: 10px;
+
+  transition: all .5s ease-in-out;
+}
+
+
+
+
 /* MODAL CONTENT and OVERLAY STYLING */
 .content {
   position: absolute;

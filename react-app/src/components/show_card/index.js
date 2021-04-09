@@ -58,7 +58,7 @@ const ShowCard = ({info}) => {
 
 
   return (
-    <div className={c.card_holder}>
+    <div className={c.card_holder} id={info.id}>
       <div className={c.left_side}>
         <div className={c.image_container}>
           <img src={info.artist.banner_URL} alt='band' className={c.band_photo}></img>
