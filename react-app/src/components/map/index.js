@@ -109,6 +109,7 @@ function Map(){
               zoom={storeMapData.zoom}
               onChange={updateStoreCoords}
               hoverDistance={25}
+              clickableIcons = {false}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
               onClick= {() => console.log('testing')}
