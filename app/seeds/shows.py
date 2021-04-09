@@ -12,11 +12,32 @@ def seed_shows():
     '407 W 15th St, New York, NY 10011',
     '147 Bleecker St, New York, NY 10012',
     '251 W 30th St, New York, NY 10001',
+
     '519 2nd Ave, New York, NY 10016',
     '1650 Broadway, New York, NY 10019',
     '212 E 52nd St, New York, NY 10022',
     '44 E 32nd St, New York, NY 10016',
     '85 Avenue A, New York, NY 10009',
+
+    '6 Delancey St, New York, NY 10002',
+    '317 E Houston St, New York, NY 10002',
+    '217 E Houston St, New York, NY 10002',
+    '188 Avenue B, New York, NY 10009',
+    '2 6th Avenue The Roxy Hotel, Cellar Level, New York, NY 10013',
+
+    '277 Church St # A, New York, NY 10013',
+    '25 N Moore St, New York, NY 10013',
+    '25 Cedar St, New York, NY 10005',
+    '160 Pearl St #1, New York, NY 10005',
+    '54 Pearl St, New York, NY 10004',
+
+    '361 Metropolitan Ave, Brooklyn, NY 11211',
+    '45 S 3rd St, Brooklyn, NY 11249',
+    '367 Bedford Ave, Brooklyn, NY 11211',
+    '152 Metropolitan Ave, Brooklyn, NY 11211',
+    '2 Havemeyer St, Brooklyn, NY 11211',
+
+
     '208 W 4th St suite c, Austin, TX 78701',
     'Swift Building, 315 Congress Ave, Austin, TX 78701',
     '1308 E 4th St, Austin, TX 78702',
@@ -47,7 +68,7 @@ def seed_shows():
   # A year's worth of fake shows
   for day in range(365):
     # 3 shows per day
-    for i in range(3):
+    for i in range(8):
       # book artist_num at location_num
 
       # print(datetime.date(datetime.now() + 7))

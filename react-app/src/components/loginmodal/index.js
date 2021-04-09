@@ -24,9 +24,9 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(openModalLogin())
-  }, [dispatch])
-
+    if (location.pathname === '/login')
+      dispatch(openModalLogin())
+  }, [dispatch, location.pathname])
 
   const closeLogIn = () => {
     dispatch(closeModalLogin());
@@ -48,12 +48,20 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
     if (!user.errors) {
       setAuthenticated(true);
       dispatch(setUser(user))
+      dispatch(closeModalLogin())
     } else {
       setErrors(user.errors);
     }
   };
   if (authenticated) {
     return <Redirect to="/" />;
+  }
+
+  let title
+  if (location.pathname === '/login'){
+    title = 'Welcome Back'
+  } else {
+    title = 'Please login to continue'
   }
 
 
@@ -92,7 +100,7 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
           </button>
         </div>
         {/* logo */}
-        <h3 className={c.title}>Welcome Back</h3>
+        <h3 className={c.title}>{title}</h3>
         <div className={c.form__container}>
           <form onSubmit={handleSubmit} className={c.form}>
             {errorRender}

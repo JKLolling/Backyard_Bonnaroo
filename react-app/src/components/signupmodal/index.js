@@ -26,8 +26,9 @@ function SignupFormModal({authenticated, setAuthenticated}) {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(openModalSignUp())
-  }, [dispatch])
+    if (location.pathname === '/sign-up')
+      dispatch(openModalSignUp())
+  }, [dispatch, location.pathname])
 
   const closeSignUp = () => {
     dispatch(closeModalSignUp());

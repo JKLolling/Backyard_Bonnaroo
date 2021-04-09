@@ -14,6 +14,7 @@ const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
 function Map(){
   const [shows, setShows] = useState([])
+  const [mapsReference, setMapsReference] = useState(null)
 
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
@@ -70,6 +71,7 @@ function Map(){
     if (map) {
       map.setCenter(storeMapData.center)
       map.setZoom(storeMapData.zoom)
+      setMapsReference(maps);
     }
   };
 
@@ -107,14 +109,18 @@ function Map(){
               zoom={storeMapData.zoom}
               onChange={updateStoreCoords}
               hoverDistance={25}
+              clickableIcons = {false}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
+              onClick= {() => console.log('testing')}
             >
               {shows.map(show => (
                 <ShowPin
-                  key={show.address+show.date}
-                  lat={show.location_lat}
-                  lng={show.location_lng}
+                key={show.address+show.date}
+                lat={show.location_lat}
+                lng={show.location_lng}
+                show_data={show}
+                mapsReference ={mapsReference}
                 />
               ))}
             </GoogleMapReact>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch} from 'react-redux';
 import Modal from 'react-modal';
 
@@ -14,23 +14,35 @@ const DatePicker = () => {
 
   const dispatch = useDispatch()
 
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
   const [selectedYear, setSelectedYear] = useState((new Date()).getFullYear())
+  const [selectedDate, setSelectedDate] = useState('')
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
-  // const [selectedDate, setSelectedDate] = useState(null)
 
+  const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
+  const monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+  const inputRef = useRef()
 
   const openModal = () => {
     setShowModal(true)
+    inputRef.current.style.width = '100%'
   }
-  const closeModal = (e) => {
+  const closeModal = () => {
     setShowModal(false)
+    inputRef.current.style.width = '50%'
+    inputRef.current.blur()
   }
 
   const getNumDaysInMonth = (month_num, year) => {
     return 42 - new Date(year, month_num, 42).getDate()
   }
+
+  //Populate the date field on load with today's date
+  useEffect(() => {
+    formatDate(new Date())
+  }, [])
 
   useEffect(() => {
     const getDaysInPreviousMonth = (month_num, year_num) => {
@@ -90,26 +102,31 @@ const DatePicker = () => {
     setSelectedYear(() => selectedYear - 1)
   }
 
+  const formatDate = (date) =>{
+    let month = date.getMonth() + 1
+    if (month < 10){
+      month = `0${month}`
+    }
+    let year = date.getFullYear()
+    let day = date.getDate()
+    if (day < 10){
+      day = `0${day}`
+    }
+
+    let string_date = `${year}-${month}-${day}`
+    dispatch(mapSetDate(string_date))
+    let days_months = `${monthMap[month-1]} ${day}`
+    setSelectedDate(days_months)
+
+    console.log(string_date)
+  }
 
   const dateClicked = (e) => {
     if (!e.target.className.includes('invalid')){
       let temp = new Date(selectedYear, selectedMonth, e.target.innerText)
-
-      let month = temp.getMonth() + 1
-      if (month < 10){
-        month = `0${month}`
-      }
-      let year = temp.getFullYear()
-      let day = temp.getDate()
-      if (day < 10){
-        day = `0${day}`
-      }
-
-      let string_date = `${year}-${month}-${day}`
-      dispatch(mapSetDate(string_date))
+      formatDate(temp)
+      closeModal()
     }
-
-    // setSelectedDate(temp)
   }
 
   const getDayClass = (i, day) => {
@@ -125,12 +142,18 @@ const DatePicker = () => {
 
     return style
   }
-  const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
-  const monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
   return (
     <>
       <div onClick={openModal}>
-        dates
+        <input
+          type='text'
+          className={c.date_input}
+          placeholder='When'
+          ref={inputRef}
+          readOnly={true}
+          value={selectedDate}
+        />
       </div>
       <Modal
         isOpen={showModal}
@@ -144,7 +167,7 @@ const DatePicker = () => {
             <div className={c.year_left_chev}
               onClick={decreaseYear}
             >
-              <i class="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left"></i>
             </div>
             <div className={c.year}>
               {selectedYear}
@@ -152,18 +175,18 @@ const DatePicker = () => {
             <div className={c.year_right_controls}
               onClick={increaseYear}
             >
-              <i class="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right"></i>
             </div>
           </div>
           <div className={c.month_controls}>
             <div className={c.month_left_chev} onClick={decreaseMonth}>
-              <i class="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left"></i>
             </div>
             <div className={c.month}>
               {monthMap[selectedMonth]}
             </div>
             <div className={c.month_right_controls} onClick={increaseMonth}>
-              <i class="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right"></i>
             </div>
           </div>
           {/* <div className={c.calendar_container}> */}
