@@ -16,6 +16,6 @@ def seed_users():
 # TRUNCATE Removes all the data from the table, and resets
 # the auto incrementing primary key
 def undo_users():
-    db.session.execute('TRUNCATE users;')
+    db.session.execute('TRUNCATE users CASCADE;')
     db.session.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1;')
     db.session.commit()

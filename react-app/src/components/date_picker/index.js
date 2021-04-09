@@ -17,8 +17,11 @@ const DatePicker = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
   const [selectedYear, setSelectedYear] = useState((new Date()).getFullYear())
+  const [selectedDate, setSelectedDate] = useState('')
   const [currentCalendarSlice, setCurrentCalendarSlice] = useState([])
-  // const [selectedDate, setSelectedDate] = useState(null)
+
+  const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
+  const monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
   const inputRef = useRef()
 
@@ -30,12 +33,16 @@ const DatePicker = () => {
     setShowModal(false)
     inputRef.current.style.width = '50%'
     inputRef.current.blur()
-    console.log(inputRef.current === document.activeElement, document.activeElement)
   }
 
   const getNumDaysInMonth = (month_num, year) => {
     return 42 - new Date(year, month_num, 42).getDate()
   }
+
+  //Populate the date field on load with today's date
+  useEffect(() => {
+    formatDate(new Date())
+  }, [])
 
   useEffect(() => {
     const getDaysInPreviousMonth = (month_num, year_num) => {
@@ -95,27 +102,31 @@ const DatePicker = () => {
     setSelectedYear(() => selectedYear - 1)
   }
 
+  const formatDate = (date) =>{
+    let month = date.getMonth() + 1
+    if (month < 10){
+      month = `0${month}`
+    }
+    let year = date.getFullYear()
+    let day = date.getDate()
+    if (day < 10){
+      day = `0${day}`
+    }
+
+    let string_date = `${year}-${month}-${day}`
+    dispatch(mapSetDate(string_date))
+    let days_months = `${monthMap[month-1]} ${day}`
+    setSelectedDate(days_months)
+
+    console.log(string_date)
+  }
 
   const dateClicked = (e) => {
     if (!e.target.className.includes('invalid')){
       let temp = new Date(selectedYear, selectedMonth, e.target.innerText)
-
-      let month = temp.getMonth() + 1
-      if (month < 10){
-        month = `0${month}`
-      }
-      let year = temp.getFullYear()
-      let day = temp.getDate()
-      if (day < 10){
-        day = `0${day}`
-      }
-
-      let string_date = `${year}-${month}-${day}`
-      dispatch(mapSetDate(string_date))
+      formatDate(temp)
       closeModal()
     }
-
-    // setSelectedDate(temp)
   }
 
   const getDayClass = (i, day) => {
@@ -131,8 +142,7 @@ const DatePicker = () => {
 
     return style
   }
-  const days_header = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT']
-  const monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
   return (
     <>
       <div onClick={openModal}>
@@ -142,6 +152,7 @@ const DatePicker = () => {
           placeholder='When'
           ref={inputRef}
           readOnly={true}
+          value={selectedDate}
         />
       </div>
       <Modal

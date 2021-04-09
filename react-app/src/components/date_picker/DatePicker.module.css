@@ -10,13 +10,12 @@
 
 .date_input {
   box-sizing: border-box;
-  width: 50px;
   width: 50%;
-  height: 20px;
+  height: 25px;
 
   background-color: white;
 
-  transform: translate(-5%, 5%);
+  transform: translate(-5%, 0%);
 
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;

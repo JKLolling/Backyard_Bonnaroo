@@ -63,7 +63,7 @@ nav li {
     } */
     .nav_search{
       box-sizing: border-box;
-      height: 20px;
+      height: 25px;
 
       width: 25%;
       background-color: white;
@@ -73,6 +73,7 @@ nav li {
 
       text-align: left;
       padding-left: 10px;
+      padding-top: 2px;
       margin: 0px;
 
       transition: all .5s ease-in-out;
