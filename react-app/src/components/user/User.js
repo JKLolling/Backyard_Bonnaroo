@@ -21,20 +21,11 @@ function User() {
   // This won't work yet
   const cancelReservation = async (e) => {
 
-    if (e.target.innerText !== 'Cancel Reservation'){
+    if (e.target.innerText !== 'CANCEL RESERVATION'){
       return;
     }
-
-    let temp = e.currentTarget.innerText
-
-    temp = temp.split('|')
-    temp = {
-      artist:temp[0],
-      time:temp[2],
-      date:temp[3]
-    }
-
-    await dispatch(asyncRemoveShow(temp, storeUserData.id))
+    let show_id_child = e.currentTarget.querySelector('input')
+    await dispatch(asyncRemoveShow(show_id_child.value, storeUserData.id))
   }
 
 
@@ -80,7 +71,7 @@ function User() {
               {storeUserData.reservations && storeUserData.reservations.map(show => (
                 <div
                   key={`${show.artist.name}${show.date}`}
-                  // onClick={cancelReservation}
+                  onClick={cancelReservation}
                   className={c.user_showcard}
                   >
                     <div className={c.show_info}>
@@ -98,6 +89,9 @@ function User() {
                       </div>
                       <div className={c.description}>
                         {show.description}
+                      </div>
+                      <div>
+                        <input type='hidden' value={show.id}></input>
                       </div>
                     </div>
                     <div className={c.cancel_button_holder}>

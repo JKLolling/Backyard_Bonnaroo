@@ -16,19 +16,6 @@ export const removeUser = () => ({
 });
 
 
-// const makeReservation = (show) => {
-//   return {
-//     type: MAKE_RESERVATION,
-//     show
-//   }
-// }
-// export const removeReservation = (show) => {
-//   return {
-//     type: REMOVE_SHOW,
-//     show
-//   }
-// }
-
 export const asyncMakeReservation = (show_id, user_id) => async dispatch => {
   const res = await fetch(`/api/users/${user_id}/reservations`, {
     method: 'POST',
@@ -40,14 +27,12 @@ export const asyncMakeReservation = (show_id, user_id) => async dispatch => {
 }
 
 export const asyncRemoveShow = (show_data, user_id) => async dispatch => {
-  console.log(user_id, show_data)
   const res = await fetch(`/api/users/${user_id}/reservations`, {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(show_data)
   })
   const user = await res.json()
-  // dispatch(setReservations(user.revervations))
   dispatch(setUser(user))
 }
 

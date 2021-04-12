@@ -36,19 +36,9 @@ def make_reservation(id):
 @user_routes.route('/<int:id>/reservations', methods=['DELETE'])
 @login_required
 def delete_reservation(id):
-    data = request.get_json()
-    print(data)
-    time = data['time']
-    artist = data['artist']
-    date = data['date']
+    show_id = request.get_json()
 
-    query = (Show.query
-      .filter(Show.artist.has(Artist.name == artist))
-      .filter(Show.time == time)
-      .filter(Show.date == date)
-    )
-    show = Show.query.from_statement(query).first()
-
+    show = Show.query.get(show_id)
     user = User.query.get(id)
 
     index = user.reserved_shows.index(show)

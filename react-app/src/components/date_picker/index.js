@@ -42,6 +42,7 @@ const DatePicker = () => {
   //Populate the date field on load with today's date
   useEffect(() => {
     formatDate(new Date())
+  // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
