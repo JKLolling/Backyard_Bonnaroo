@@ -80,7 +80,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <ul className={c.nav_content} ref={navContentRef}>
         <li>
           <div className={c.home_div}>
-            <NavLink to="/" exact={true} activeClassName="active">
+            <NavLink to="/map/address=new+york" exact={true} activeClassName="active">
               Home
             </NavLink>
           </div>
