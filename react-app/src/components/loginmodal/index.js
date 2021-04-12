@@ -134,7 +134,6 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
             <p className={c.or}>OR</p>
             <div className={c.div}>
               <button
-                id='demo-login'
                 type='submit'
                 onClick={demoLogin}
                 className={c.demo}
@@ -146,8 +145,6 @@ function LoginFormModal({ authenticated, setAuthenticated }) {
         </div>
         <div className={c.div__line}></div>
         <div className={c.div}>
-          {/* this is a temp fix, we need to add an href to this anchor tag */}
-          {/*eslint-disable-next-line */}
           <div onClick={(e) => closeLoginOpenSignUp()} className={c.signup}>
             Not on Sonic Fog yet? Sign up
 					</div>
