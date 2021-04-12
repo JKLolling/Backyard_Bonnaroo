@@ -10,6 +10,8 @@ import ExplorePage from './components/explore_page'
 import HomePage from './components/splash_page'
 import { authenticate } from "./services/auth";
 
+//Store session
+import {setUser} from './store/session'
 
 // Modal stuff
 import LoginFormModal from './components/loginmodal'
@@ -31,6 +33,7 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        dispatch(setUser(user))
       }
       setLoaded(true);
     })();

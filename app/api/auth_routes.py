@@ -28,6 +28,17 @@ def authenticate():
     return {'errors': ['Unauthorized']}
 
 
+# toothless authenticate for easy user page testing
+# @auth_routes.route('/')
+# def authenticate():
+#     """
+#     Authenticates a user.
+#     """
+
+#     user = User.query.filter(User.id == 1).first()
+#     return user.to_dict()
+
+
 @auth_routes.route('/login', methods=['POST'])
 def login():
     """
