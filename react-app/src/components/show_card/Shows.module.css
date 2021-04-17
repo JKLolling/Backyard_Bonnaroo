@@ -45,7 +45,8 @@
       z-index: 1;
     }
       .band_photo{
-        width: 103%;
+        width: 100%;
+        min-height: 100%;
 
       }
 

@@ -2,10 +2,11 @@ import React from 'react'
 
 //Store
 import {useSelector, useDispatch} from 'react-redux'
-
-
 import {openModalLogin} from '../../store/modal';
 import {asyncMakeReservation} from '../../store/session'
+
+//Components
+import AudioPlayer from '../audio_player'
 
 //Styling
 import c from './Shows.module.css'
@@ -21,15 +22,6 @@ const ShowCard = ({info}) => {
       dispatch(openModalLogin())
     } else if (e.target.innerText.toUpperCase() === 'RESERVE A SPOT!') {
       await dispatch(asyncMakeReservation(info.id, storeUserData.id))
-      console.log('hiiiii')
-      // const res = await fetch(`/api/users/${storeUserData.id}/reservations`, {
-      //   method: 'POST',
-      //   headers: {'Content-Type': 'application/json'},
-      //   body: JSON.stringify(info.id)
-      // })
-      // const data = await res.json()
-      // Display some kind of success message to the user
-      // Also, be sure to check that they haven't already reserved this spot
     }
   }
 
@@ -39,7 +31,7 @@ const ShowCard = ({info}) => {
     for (let i = 0; i < storeUserData.reservations.length; i++){
       let show = storeUserData.reservations[i]
       if(info.id === show.id){
-        button_text = 'You have already reserved this show'
+        button_text = 'You have already reserved a spot'
         button_style = c.already_registered_button
       }
     }
@@ -64,7 +56,8 @@ const ShowCard = ({info}) => {
           <img src={info.artist.banner_URL} alt='band' className={c.band_photo}></img>
         </div>
         <div>
-          <audio src={info.artist.sample_song} controls></audio>
+          <AudioPlayer song_url={info.artist.sample_song}/>
+          {/* <audio src={info.artist.sample_song} controls></audio> */}
         </div>
       </div>
       <div className={c.right_side}>

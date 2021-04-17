@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import modalReducer from './modal';
 import sessionReducer from './session';
 import mapReducer from './map'
+import songReducer from './song';
 
 const rootReducer = combineReducers({
   modal: modalReducer,
   session: sessionReducer,
   map: mapReducer,
+  song: songReducer
 });
 
 let enhancer;

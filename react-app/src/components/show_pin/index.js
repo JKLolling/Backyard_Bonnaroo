@@ -2,16 +2,9 @@ import React, {useRef} from 'react';
 
 import c from './ShowPin.module.css'
 
-const ShowPin = ({$hover, show_data, mapsReference}) => {
+const ShowPin = ({$hover, show_data}) => {
   const detailsRef = useRef()
   const pinRef = useRef()
-
-
-
-
-  // if (mapsReference && detailsRef.current) {
-  //   mapsReference.OverlayView.preventMapHitsAndGesturesFrom(containerRef.current);
-  // }
 
   const pin_style = $hover ? `${c.hovered} ${c.pin}` : c.pin
   const detail_style = $hover ? c.hovered_details : c.hidden

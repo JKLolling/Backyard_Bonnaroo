@@ -14,7 +14,6 @@ const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
 function Map(){
   const [shows, setShows] = useState([])
-  const [mapsReference, setMapsReference] = useState(null)
 
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
@@ -58,11 +57,14 @@ function Map(){
 
       let url = `https://maps.googleapis.com/maps/api/geocode/json?${searchParams}`
 
-      const res = await fetch(url)
-      const data = await res.json()
-      const {lat, lng} = data.results[0].geometry.location
-
-      dispatch(mapSetCenter({lat, lng}))
+      try {
+        const res = await fetch(url)
+        const data = await res.json()
+        const {lat, lng} = data.results[0].geometry.location
+        dispatch(mapSetCenter({lat, lng}))
+      } catch (error) {
+        console.log('Cannot find the address provided')
+      }
     })();
   }, [dispatch, params]);
 
@@ -71,21 +73,11 @@ function Map(){
     if (map) {
       map.setCenter(storeMapData.center)
       map.setZoom(storeMapData.zoom)
-      setMapsReference(maps);
     }
   };
 
   const updateStoreCoords = (e) => {
     const {lat, lng} = e.center
-
-    // console.log(e.center, e.zoom)
-    // Not sure if I should include this. Probably not
-    // const latDiff = Math.abs(storeMapData.center.lat - lat)
-    // const lngDiff = Math.abs(storeMapData.center.lng - lng)
-
-    // console.log(latDiff > 0.01, lngDiff > 0.01)
-    // if (latDiff > 0.01 || lngDiff > 0.01){
-    // }
     dispatch(mapSetCenter({lat, lng}))
   }
 
@@ -93,14 +85,12 @@ function Map(){
       <div className={c.page_container}>
         <div className={c.page_content}>
           <div className={c.results_container}>
-            {/* <div className={c.results_inner_container}> */}
-              {shows.map(show => (
-                <ShowCard
-                  key={show.address + show.date}
-                  info={show}
-                />
-              ))}
-            {/* </div> */}
+            {shows.map(show => (
+              <ShowCard
+                key={show.address + show.date}
+                info={show}
+              />
+            ))}
           </div>
           <div style={{ height: '100%', width: '60%' }} className={c.map}>
             <GoogleMapReact
@@ -109,10 +99,8 @@ function Map(){
               zoom={storeMapData.zoom}
               onChange={updateStoreCoords}
               hoverDistance={25}
-              clickableIcons = {false}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
-              onClick= {() => console.log('testing')}
             >
               {shows.map(show => (
                 <ShowPin
@@ -120,7 +108,6 @@ function Map(){
                 lat={show.location_lat}
                 lng={show.location_lng}
                 show_data={show}
-                mapsReference ={mapsReference}
                 />
               ))}
             </GoogleMapReact>
