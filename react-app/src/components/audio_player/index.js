@@ -71,6 +71,7 @@ const AudioPlayer = ({song_url}) => {
       // This updates the 'filled in color' of the progress bar in the bottom nav
       const slider = sliderRef.current
       slider.style.background = `linear-gradient(to right, #FD3700 0%, #FD3700 ${percentage_complete}%, grey ${percentage_complete}%, grey 100%)`
+      slider.style.background = `linear-gradient(to right, #d80e15 0%, #d80e15 ${percentage_complete}%, grey ${percentage_complete}%, grey 100%)`
 
       // return percentage_complete
       setSliderValue(percentage_complete)
@@ -94,12 +95,12 @@ const AudioPlayer = ({song_url}) => {
       dispatch(setActiveSongData(song_url))
     }
 
-    if (e.target.innerText === 'Play') {
-      e.target.innerText = 'Pause'
+    if (e.target.innerText === 'PLAY') {
+      e.target.innerText = 'PAUSE'
       audioRef.current['play']()
 
     } else {
-      e.target.innerText = 'Play'
+      e.target.innerText = 'PLAY'
       audioRef.current['pause']()
     }
   }
@@ -109,7 +110,7 @@ const AudioPlayer = ({song_url}) => {
       if (storeSongData?.activeSongURL !== song_url) {
         audioRef.current['pause']()
         audioRef.current.currentTime = 0
-        buttonRef.current.innerText = 'Play'
+        buttonRef.current.innerText = 'PLAY'
       }
     }, [storeSongData, song_url])
 
@@ -127,7 +128,7 @@ const AudioPlayer = ({song_url}) => {
         onLoadedMetadata={updateDurationDisplay}
       >
       </audio>
-      <button ref={buttonRef} onClick={togglePlaying} className={c.play_pause_button}>Play</button>
+      <button ref={buttonRef} onClick={togglePlaying} className={c.play_pause_button}>PLAY</button>
       <div className={c.progressbar}>
         <span ref={startTimeRef} className={c.currentTime}>0:00</span>
         <input
@@ -140,7 +141,7 @@ const AudioPlayer = ({song_url}) => {
           onChange={seekTrack}
           id={c.slider}
         />
-        <span ref={endTimeRef}>0:00</span>
+        <span ref={endTimeRef} className={c.duration}>0:00</span>
       </div>
     </div>
   );

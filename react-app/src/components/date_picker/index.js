@@ -118,8 +118,6 @@ const DatePicker = () => {
     dispatch(mapSetDate(string_date))
     let days_months = `${monthMap[month-1]} ${day}`
     setSelectedDate(days_months)
-
-    console.log(string_date)
   }
 
   const dateClicked = (e) => {

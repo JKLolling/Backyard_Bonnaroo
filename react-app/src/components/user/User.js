@@ -18,7 +18,7 @@ function User() {
   if (!storeUserData?.id) {
     return null;
   }
-  // This won't work yet
+
   const cancelReservation = async (e) => {
 
     if (e.target.innerText !== 'CANCEL RESERVATION'){
@@ -68,6 +68,9 @@ function User() {
         </div>
         <div className={c.content}>
             <div className={c.reserved_shows}>
+              <div className={c.reserved_shows_header}>
+                Upcoming Shows
+              </div>
               {storeUserData.reservations && storeUserData.reservations.map(show => (
                 <div
                   key={`${show.artist.name}${show.date}`}

@@ -25,13 +25,32 @@ const ShowCard = ({info}) => {
     }
   }
 
+  // Different styling options for the button
+  // Checks if the user has already registered
+  // Also checks if the date has already passed
   let button_style = c.reservation_button
   let button_text = 'Reserve a Spot!'
   if (storeUserData?.reservations){
     for (let i = 0; i < storeUserData.reservations.length; i++){
       let show = storeUserData.reservations[i]
+
+      // If they have registered
       if(info.id === show.id){
         button_text = 'You have already reserved a spot'
+        button_style = c.already_registered_button
+      }
+
+      //If the date has passed
+      const today = new Date()
+
+      const temp = info.date.split('-')
+      const show_date = new Date(temp)
+
+      today.setHours(0,0,0,0)
+      show_date.setHours(0,0,0,0)
+
+      if (today.getTime() > show_date.getTime()){
+        button_text = 'This show has already happened'
         button_style = c.already_registered_button
       }
     }
@@ -55,10 +74,7 @@ const ShowCard = ({info}) => {
         <div className={c.image_container}>
           <img src={info.artist.banner_URL} alt='band' className={c.band_photo}></img>
         </div>
-        <div>
-          <AudioPlayer song_url={info.artist.sample_song}/>
-          {/* <audio src={info.artist.sample_song} controls></audio> */}
-        </div>
+        <AudioPlayer song_url={info.artist.sample_song}/>
       </div>
       <div className={c.right_side}>
         <div className={c.artist_name}>

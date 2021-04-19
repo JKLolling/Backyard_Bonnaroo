@@ -30,8 +30,8 @@
   /* min-height: max-content; */
   /* height: min-content; */
 
-  background-color: white;
   background-color: rgba(246,241,238, 1);
+  background-color: #eeeeee;
 
   z-index: 1;
 
