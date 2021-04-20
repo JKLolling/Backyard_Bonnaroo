@@ -8,14 +8,15 @@ import {asyncSetReview} from '../../store/session'
 
 import c from './UserReview.module.css'
 
-const star_color = 'gold'
-const empty_star_color = 'lightgrey'
+const star_color = 'rgb(255, 0, 0)'
+const empty_star_color = 'rgb(148, 146, 146)'
 
 const UserReview = ({show, user_id, review}) => {
   const ratingRef = useRef()
   const dispatch = useDispatch()
 
   const [rating, setRating] = useState(review?.rating)
+  // const [databaseRating,] = useState(review?.rating)
 
   // fills in the stars with whatever the rating is
   useEffect(() => {
@@ -38,11 +39,17 @@ const UserReview = ({show, user_id, review}) => {
 
   // Allows the user to save their new review
   const changeRating = async () => {
-    dispatch(asyncSetReview(show.artist_id, user_id, show.id, rating))
+    if (rating !== review.rating)
+      dispatch(asyncSetReview(show.artist_id, user_id, show.id, rating))
   }
 
   const resetRating = () => {
     // reset the rating to the whatever is in the database
+  }
+
+  let button_style = c.save_button
+  if (review?.rating === rating){
+    button_style = c.already_saved
   }
 
   return (
@@ -62,20 +69,22 @@ const UserReview = ({show, user_id, review}) => {
         <div className={c.past_address}>
           {show.address}
         </div>
-        <div
-          className={c.stars}
-          onClick={slideStars}
-          onMouseLeave={resetRating}
-          ref={ratingRef}
-        >
-          ★★★★★
-        </div>
-        <div>
-          <button onClick={changeRating}>Howdy</button>
-        </div>
         <div>
           <input type='hidden' value={show.id}></input>
         </div>
+      </div>
+      <div className={c.stars_holder}>
+          <div
+            className={c.stars}
+            onClick={slideStars}
+            onMouseLeave={resetRating}
+            ref={ratingRef}
+          >
+            ★★★★★
+          </div>
+          <div>
+            <button onClick={changeRating} className={button_style}>Save</button>
+          </div>
       </div>
     </div>
   )

@@ -1,4 +1,7 @@
-
+:root{
+  --star-color: rgb(255, 0, 0);
+  --empty-star-color: rgb(148, 146, 146);
+}
     .review_card{
       box-sizing: border-box;
       width: 100%;
@@ -12,14 +15,11 @@
       margin-bottom: 1px;
 
       background-color: rgba(246,241,238, 1);
-
-      display: flex;
-      justify-content: center;
     }
 
         .past_show_info{
           margin-left: 20px;
-          width: 100%;
+          width: fit-content;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -48,16 +48,72 @@
           font-size: .8em;
         }
 
-        .stars{
-          background: linear-gradient(to right, var(--star-color) 0%, var(--star-color) 0%, grey 0%, grey 100%);
-          width: fit-content;
-
-          font-size: 2em;
-
-          background-clip:text;
-          color: transparent;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-
-          cursor: pointer;
+        .stars_holder {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+
+            .stars{
+              background: linear-gradient(to right, var(--star-color) 0%, var(--star-color) 0%, var(--empty-star-color) 0%, var(--empty-star-color) 100%);
+              width: fit-content;
+
+              font-size: 2em;
+
+              background-clip:text;
+              color: transparent;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+
+              cursor: pointer;
+            }
+
+            .save_button{
+              margin-top: 5px;
+              margin-left: 10px;
+
+              font-size: .8em;
+              padding: 0.5em 1em;
+
+              border-radius:0.15em;
+
+              /* text-transform:uppercase; */
+              color: white;
+
+              /* font-weight:200; */
+
+              background-color:#3369ff;
+              background-color: rgb(255, 0, 0);
+
+              box-shadow:.1em .1em .1em 0.1em rgba(0,0,0,0..5);
+              border: none;
+
+              text-align:center;
+
+              cursor: pointer;
+            }
+
+            .already_saved {
+              margin-top: 5px;
+              margin-left: 10px;
+
+              font-size: .8em;
+              padding: 0.5em 1em;
+
+              border-radius:0.15em;
+
+              /* text-transform:uppercase; */
+              color: white;
+
+              /* font-weight:200; */
+
+              background-color:#3369ff;
+              background-color: rgb(102, 102, 102);
+
+              box-shadow:.1em .1em .1em 0.1em rgba(0,0,0,0..5);
+              border: none;
+
+              text-align:center;
+
+              cursor: not-allowed;
+            }

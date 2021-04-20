@@ -1,7 +1,3 @@
-:root{
-  --star-color: gold;
-}
-
 .page_parent{
   display: flex;
   flex-direction: column;
