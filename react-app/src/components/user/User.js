@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {useSelector,useDispatch} from 'react-redux'
 
+import UserReview from '../user_reviews'
+
+import {getFormattedDateTime} from '../../services/date_time'
+
 // Redux stuff
 import {asyncRemoveShow} from '../../store/session'
 
@@ -11,6 +15,8 @@ function User() {
 
   // This contains all the user information, including reservations
   const storeUserData = useSelector(store => store.session.user)
+
+  const dispatch = useDispatch()
 
   const [pastRes, setPastRes ] = useState(null)
   const [upcomingRes, setUpcomingRes] = useState(null)
@@ -39,7 +45,7 @@ function User() {
   }, [storeUserData])
 
 
-  const dispatch = useDispatch()
+
 
 
   if (!storeUserData?.id) {
@@ -55,37 +61,6 @@ function User() {
     await dispatch(asyncRemoveShow(show_id_child.value, storeUserData.id))
   }
 
-
-  const getFormattedTime = (showTime) => {
-    let time
-    let m = 'AM'
-    let [hours, minutes] = showTime.split(':')
-    if (hours > 12){
-      hours -= 12
-      m = 'PM'
-    }
-    time = `${hours}:${minutes} ${m}`
-
-    return time
-  }
-
-
-  const dayMap = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
-  const monthMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const getFormattedDateTime = (showDate,showTime) => {
-    let date_arr = showDate.split('-')
-    let [year, month, date] = date_arr
-
-    if (date[0] === '0') date = date[1]
-    if (month[0] === '0') month = month[1]
-    month--
-
-    const day_index = new Date(year, month, date).getDay()
-
-    const formattedTime = getFormattedTime(showTime)
-
-    return `${dayMap[day_index]} ▪ ${monthMap[month]} ${date}, ${year} ▪ ${formattedTime}`
-  }
   return (
     <div className={c.page_parent}>
       <div className={c.page_container}>
@@ -132,33 +107,10 @@ function User() {
             </div>
             <div className={c.reviews}>
               <div className={c.reviews_header}>
-                Reviews
+                Past Shows
               </div>
               {pastRes && pastRes.map(show => (
-                <div
-                  key={`${show.artist.name}${show.date}`}
-                  className={c.review_card}
-                  >
-                    <div className={c.past_show_info}>
-                      <div className={c.past_artist_and_date}>
-                        <span className={c.past_artist}>
-                          {show.artist.name}
-                        </span>
-                        <span className={c.past_date_time}>
-                          {getFormattedDateTime(show.date, show.time)}
-                        </span>
-                      </div>
-                      <div className={c.past_address}>
-                        {show.address}
-                      </div>
-                      <div className={c.review_input}>
-                        <textarea>Type some stuff</textarea>
-                      </div>
-                      <div>
-                        <input type='hidden' value={show.id}></input>
-                      </div>
-                    </div>
-                </div>
+                <UserReview show={show} key={show.artist.name+show.date+show.time}/>
               ))}
             </div>
         </div>

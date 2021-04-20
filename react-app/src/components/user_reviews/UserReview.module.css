@@ -1,0 +1,62 @@
+
+    .review_card{
+      box-sizing: border-box;
+      width: 100%;
+      padding-left: 20px;
+      padding: 10px;
+
+      border-bottom: 1px solid grey;
+      border-left: 1px solid lightgrey;
+      box-shadow: 0px 2px 2px -1px grey;
+
+      margin-bottom: 1px;
+
+      background-color: rgba(246,241,238, 1);
+
+      display: flex;
+      justify-content: center;
+    }
+
+        .past_show_info{
+          margin-left: 20px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          /* align-items: center; */
+        }
+
+        /* .past_artist_and_date{
+          display: flex;
+          justify-content: space-around;
+        } */
+
+        .past_artist{
+          font-size: 1.4em;
+          padding-bottom: 5px;
+          margin-right: 15px;
+        }
+
+        .past_date_time{
+          padding-bottom: 10px;
+          font-size: .8em;
+        }
+
+        .past_address{
+          color: grey;
+          padding-bottom: 10px;
+          font-size: .8em;
+        }
+
+        .stars{
+          background: linear-gradient(to right, var(--star-color) 0%, var(--star-color) 0%, grey 0%, grey 100%);
+          width: fit-content;
+          font-size: 2em;
+
+          background-clip:text;
+          color: transparent;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+
+          cursor: pointer;
+        }

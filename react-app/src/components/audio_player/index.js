@@ -70,7 +70,6 @@ const AudioPlayer = ({song_url}) => {
 
       // This updates the 'filled in color' of the progress bar in the bottom nav
       const slider = sliderRef.current
-      slider.style.background = `linear-gradient(to right, #FD3700 0%, #FD3700 ${percentage_complete}%, grey ${percentage_complete}%, grey 100%)`
       slider.style.background = `linear-gradient(to right, #d80e15 0%, #d80e15 ${percentage_complete}%, grey ${percentage_complete}%, grey 100%)`
 
       // return percentage_complete
