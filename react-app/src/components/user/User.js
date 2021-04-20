@@ -13,16 +13,15 @@ import c from './User.module.css'
 
 function User() {
 
-
   // This contains all the user information, including reservations
   const storeUserData = useSelector(store => store.session.user)
-  console.log(storeUserData)
 
   const dispatch = useDispatch()
 
   const [pastRes, setPastRes ] = useState(null)
   const [upcomingRes, setUpcomingRes] = useState(null)
 
+  // Organize the reservations into past and present
   useEffect(() => {
     let total_reservations = storeUserData.reservations
     let upcoming_res_temp = []
@@ -45,9 +44,6 @@ function User() {
       setUpcomingRes(upcoming_res_temp)
     })
   }, [storeUserData])
-
-
-
 
 
   if (!storeUserData?.id) {
@@ -112,7 +108,7 @@ function User() {
                 Past Shows
               </div>
               {pastRes && pastRes.map(show => (
-                <UserReview show={show} key={show.artist.name+show.date+show.time} user_id={storeUserData.id}/>
+                <UserReview show={show} key={show.artist.name+show.date+show.time} user_id={storeUserData.id} review={storeUserData.reviews[show.id]}/>
               ))}
             </div>
         </div>

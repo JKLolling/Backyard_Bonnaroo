@@ -40,11 +40,15 @@ class User(db.Model, UserMixin):
   # keys = [show.to_dict()['id'] for show in self.reserved_shows]
   # values = [show.to_dict() for show in self.reserved_shows]
 
+  def getKey(self, review):
+    return review.show_id
+    return
+
   def to_dict(self):
     return {
       "id": self.id,
       "username": self.username,
       "email": self.email,
       "reservations": [show.to_dict() for show in self.reserved_shows],
-      'reviews': [review.to_dict() for review in self.reviews]
+      'reviews': {review.show_id:review.to_dict() for review in self.reviews}
     }
