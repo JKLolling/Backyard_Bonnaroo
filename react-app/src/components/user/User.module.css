@@ -6,12 +6,12 @@
 }
 
 .page_container{
+  width: 55.49%;
   background-color: rgba(246,241,238, 1);
 }
 
 .banner{
   height: 40vh;
-
 
   position: relative;
   overflow-y: hidden;
@@ -43,7 +43,8 @@
     }
 
 .content{
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
 
   display: flex;
 }
@@ -64,16 +65,11 @@
           color: white;
 
           font-size: 1.3em;
-          /* padding-left: 20px; */
 
-          border-bottom: 1px solid grey;
-          box-shadow: 0px 2px 2px -1px grey;
+          box-shadow: 0px 3px 2px 0px black;
 
-          margin-bottom: 3px;
-
-          /* background-color: rgba(246,241,238, 1); */
-
-          /* display: flex */
+          z-index: 1;
+          position: relative;
         }
 
         .user_showcard{
@@ -81,17 +77,15 @@
           padding-left: 20px;
 
           border-bottom: 1px solid grey;
+          border-left: 1px solid lightgrey;
           box-shadow: 0px 2px 2px -1px grey;
 
-          margin-bottom: 3px;
+          margin-bottom: 1px;
 
           background-color: rgba(246,241,238, 1);
 
           display: flex
         }
-            /* .show_info{
-
-            } */
 
                 .artist{
                   font-size: 2em;
@@ -121,7 +115,7 @@
 
             .cancel_button{
 
-               padding: 0.7em 1.4em;
+              padding: 0.7em 1.4em;
               margin: 0 0.3em 0.3em 0;
 
               border-radius:0.15em;
@@ -130,10 +124,9 @@
               color: white;
 
               font-weight:400;
-              background-color:#356afd;
-              background-color: rgb(221, 28, 35);
+
               background-color:#3369ff;
-              box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+
               box-shadow:.1em .1em .1em 0.1em rgba(0,0,0,0..5);
               border: none;
               text-align:center;
@@ -143,16 +136,84 @@
             }
 
     .reviews{
+      box-sizing: border-box;
       width: 40%;
-
-      padding: 20px;
+      overflow: hidden;
 
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      background-color: rgb(238, 238, 238);
+
+      box-shadow: inset -1px 0px 5px 0px rgba(0, 0, 0, 0.7);
     }
 
-        .temp{
-          color: grey;
-          padding: 20px
+        .reviews_header{
+          box-sizing: border-box;
+          width: 100%;
+          text-align: center;
+          padding: 20px;
+
+          background-color: rgba(255, 0, 0, 0.7);
+          color: white;
+
+          font-size: 1.3em;
+
+          box-shadow: 0px 2px 2px 0px black;
+
+          z-index: 1;
+          position: relative;
         }
+
+        .review_card{
+          box-sizing: border-box;
+          width: 100%;
+          padding-left: 20px;
+          padding: 10px;
+
+          border-bottom: 1px solid grey;
+          border-left: 1px solid lightgrey;
+          box-shadow: 0px 2px 2px -1px grey;
+
+          margin-bottom: 1px;
+
+          background-color: rgba(246,241,238, 1);
+
+          display: flex;
+          justify-content: center;
+        }
+
+            .past_show_info{
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              /* align-items: center; */
+            }
+
+            /* .past_artist_and_date{
+              display: flex;
+              justify-content: space-around;
+            } */
+
+            .past_artist{
+              font-size: 1.5em;
+              padding-bottom: 5px;
+              margin-right: 15px;
+            }
+
+            .past_date_time{
+              padding-bottom: 10px;
+              font-size: .8em;
+            }
+
+            .past_address{
+              color: grey;
+              padding-bottom: 10px;
+              font-size: .8em;
+            }
+
+            .review_input{
+              /* width: 80%; */
+            }

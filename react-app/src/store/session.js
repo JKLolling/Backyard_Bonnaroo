@@ -1,7 +1,5 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
-const MAKE_RESERVATION = 'session/MAKE_RESERVATIONS'
-// const REMOVE_SHOW = 'session/REMOVE_SHOWS'
 
 // actions
 export const setUser = (user) => {
@@ -48,12 +46,6 @@ export default function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { user: null };
-    case MAKE_RESERVATION:
-      let old_reservations = state.user.reservations
-      let new_reservations = [...old_reservations, action.show]
-      console.log(new_reservations)
-      // newState = Object.assign({}, state, {user[reservations]: new_reservations);
-			return state
     default:
       return state;
   }
