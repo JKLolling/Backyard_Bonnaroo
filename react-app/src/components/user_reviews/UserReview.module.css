@@ -117,3 +117,6 @@
 
               cursor: not-allowed;
             }
+            .already_saved:focus {
+              outline: none;
+            }

@@ -36,19 +36,23 @@ const UserReview = ({show, user_id, review}) => {
       setRating(percentage)
   }
 
-
   // Allows the user to save their new review
   const changeRating = async () => {
-    if (rating !== review.rating)
+    if (rating !== review?.rating && rating !== -1){
       dispatch(asyncSetReview(show.artist_id, user_id, show.id, rating))
+    }
   }
 
   const resetRating = () => {
-    // reset the rating to the whatever is in the database
+    if (!review){
+      setRating(-1)
+      return
+    }
+    setRating(review.rating)
   }
 
   let button_style = c.save_button
-  if (review?.rating === rating){
+  if (review?.rating === rating || rating === -1){
     button_style = c.already_saved
   }
 
@@ -77,13 +81,15 @@ const UserReview = ({show, user_id, review}) => {
           <div
             className={c.stars}
             onClick={slideStars}
-            onMouseLeave={resetRating}
             ref={ratingRef}
           >
             ★★★★★
           </div>
           <div>
             <button onClick={changeRating} className={button_style}>Save</button>
+          </div>
+          <div>
+            <button onClick={resetRating} className={button_style}>Reset</button>
           </div>
       </div>
     </div>

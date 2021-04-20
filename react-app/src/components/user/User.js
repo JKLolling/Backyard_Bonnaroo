@@ -18,15 +18,18 @@ function User() {
 
   const dispatch = useDispatch()
 
-  const [limit, setLimit] = useState(10)
+  const LIMIT_INCREASE = 1
+  const [limit, setLimit] = useState(LIMIT_INCREASE)
   const [pastRes, setPastRes ] = useState(null)
   const [upcomingRes, setUpcomingRes] = useState(null)
 
 
   // Organize the reservations into past and present
   useEffect(() => {
-    let total_reservations = storeUserData.reservations
-    console.log(total_reservations)
+    // reserverse is destructive, so you have to make a copy
+    let total_reservations = storeUserData.reservations.slice()
+    total_reservations.reverse()
+
     let upcoming_res_temp = []
     let past_res_temp = []
     total_reservations.forEach(reservation => {
@@ -44,11 +47,11 @@ function User() {
         past_res_temp.push(reservation)
       }
     })
-    // Rerverse the past shows so that the most recent shows are on top
-    setPastRes(past_res_temp.reverse())
-    setUpcomingRes(upcoming_res_temp)
-  }, [storeUserData, limit])
+    // Reverse the upcoming shows so that the soonest shows are on top
+    setPastRes(past_res_temp)
+    setUpcomingRes(upcoming_res_temp.reverse())
 
+  }, [storeUserData, limit])
 
 
   const cancelReservation = async (e) => {
@@ -61,9 +64,19 @@ function User() {
   }
 
   const showMore = (e) => {
-    setLimit(limit => limit + 10)
+    // if we are NOT already showing all the past reservations, then increase the limit
+    let total_reservations = storeUserData.reservations
+    if (pastRes.length !== total_reservations.length - upcomingRes.length)
+      setLimit(limit => limit + LIMIT_INCREASE)
   }
 
+  // Style the show more button
+  // changes based on if there is anything more to show
+  let showmore_style = c.showMore
+  let total_reservations = storeUserData.reservations
+  if (pastRes?.length && pastRes.length === total_reservations.length - upcomingRes.length){
+    showmore_style = c.noMore
+  }
 
   if (!storeUserData?.id) {
     return null;
@@ -119,7 +132,7 @@ function User() {
               {pastRes && pastRes.map(show => (
                 <UserReview show={show} key={show.artist.name+show.date+show.time} user_id={storeUserData.id} review={storeUserData.reviews[show.id]}/>
               ))}
-              <div onClick={showMore}>
+              <div onClick={showMore} className={showmore_style}>
                 Show More
               </div>
             </div>
