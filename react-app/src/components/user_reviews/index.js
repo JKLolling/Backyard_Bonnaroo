@@ -5,7 +5,7 @@ import {getFormattedDateTime} from '../../services/date_time'
 import c from './UserReview.module.css'
 
 const star_color = 'gold'
-const empty_star_color = 'grey'
+const empty_star_color = 'lightgrey'
 
 const UserReview = ({show, user_id}) => {
   const ratingRef = useRef()
@@ -18,7 +18,7 @@ const UserReview = ({show, user_id}) => {
 
       const width = ratingRef.current.offsetWidth
 
-      const percentage = parseFloat((Math.abs(relativePosition) / width).toFixed(2)) * 100
+      const percentage = Math.round(parseFloat((Math.abs(relativePosition) / width).toFixed(2)) * 100)
 
       ratingRef.current.style.background = `linear-gradient(to right, ${star_color} 0%, ${star_color} ${percentage}%, ${empty_star_color} ${percentage}%, ${empty_star_color} 100%)`
       ratingRef.current.style['-webkit-background-clip'] = 'text'
@@ -33,7 +33,8 @@ const UserReview = ({show, user_id}) => {
       },
       body: JSON.stringify({
         rating,
-        user_id
+        user_id,
+        'show_id': show.id,
       })
     })
     let data = await res.json()

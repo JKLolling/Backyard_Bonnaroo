@@ -9,11 +9,19 @@ artist_routes = Blueprint('artists', __name__)
 def post_review(artist_id):
     rating = request.get_json()['rating']
     user_id = request.get_json()['user_id']
+    show_id = request.get_json()['show_id']
+
+    review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
+    if (review):
+      review.rating = rating
+      db.session.commit()
+      return review.to_dict()
 
     new_review = Review(
       rating= rating,
       user_id= user_id,
-      artist_id= artist_id
+      artist_id= artist_id,
+      show_id= show_id
     )
 
     db.session.add(new_review)

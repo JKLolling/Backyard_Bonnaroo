@@ -51,6 +51,7 @@
         .stars{
           background: linear-gradient(to right, var(--star-color) 0%, var(--star-color) 0%, grey 0%, grey 100%);
           width: fit-content;
+
           font-size: 2em;
 
           background-clip:text;
