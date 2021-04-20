@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 
 import {getFormattedDateTime} from '../../services/date_time'
 
@@ -7,10 +7,12 @@ import c from './UserReview.module.css'
 const star_color = 'gold'
 const empty_star_color = 'grey'
 
-const UserReview = ({show}) => {
+const UserReview = ({show, user_id}) => {
   const ratingRef = useRef()
 
-  const changeRating = (e) => {
+  const [rating, setRating] = useState(0)
+
+  const slideStars = (e) => {
       const distanceFromLeft = ratingRef.current.getBoundingClientRect().left
       const relativePosition = e.clientX - distanceFromLeft
 
@@ -20,7 +22,24 @@ const UserReview = ({show}) => {
 
       ratingRef.current.style.background = `linear-gradient(to right, ${star_color} 0%, ${star_color} ${percentage}%, ${empty_star_color} ${percentage}%, ${empty_star_color} 100%)`
       ratingRef.current.style['-webkit-background-clip'] = 'text'
+
+      setRating(percentage)
   }
+  const changeRating = async () => {
+    let res = await fetch( `/api/artists/${show.artist_id}/reviews`,{
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify({
+        rating,
+        user_id
+      })
+    })
+    let data = await res.json()
+    console.log(data)
+  }
+
 
   const resetRating = () => {
     // reset the rating to the whatever is in the database
@@ -45,11 +64,14 @@ const UserReview = ({show}) => {
         </div>
         <div
           className={c.stars}
-          onMouseMove={changeRating}
+          onMouseMove={slideStars}
           onMouseLeave={resetRating}
           ref={ratingRef}
         >
           ★★★★★
+        </div>
+        <div>
+          <button onClick={changeRating}>Howdy</button>
         </div>
         <div>
           <input type='hidden' value={show.id}></input>

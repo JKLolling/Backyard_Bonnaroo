@@ -13,8 +13,10 @@ import c from './User.module.css'
 
 function User() {
 
+
   // This contains all the user information, including reservations
   const storeUserData = useSelector(store => store.session.user)
+  console.log(storeUserData)
 
   const dispatch = useDispatch()
 
@@ -110,7 +112,7 @@ function User() {
                 Past Shows
               </div>
               {pastRes && pastRes.map(show => (
-                <UserReview show={show} key={show.artist.name+show.date+show.time}/>
+                <UserReview show={show} key={show.artist.name+show.date+show.time} user_id={storeUserData.id}/>
               ))}
             </div>
         </div>

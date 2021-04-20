@@ -19,6 +19,8 @@ class User(db.Model, UserMixin):
   created_on = db.Column(db.DateTime, default=datetime.now())
   reserved_shows = db.relationship('Show', secondary=reservation_pairs, back_populates='attendees')
 
+  reviews = db.relationship('Review', back_populates='user')
+
 
   @property
   def password(self):
@@ -43,5 +45,6 @@ class User(db.Model, UserMixin):
       "id": self.id,
       "username": self.username,
       "email": self.email,
-      "reservations": [show.to_dict() for show in self.reserved_shows]
+      "reservations": [show.to_dict() for show in self.reserved_shows],
+      'reviews': [review.to_dict() for review in self.reviews]
     }
