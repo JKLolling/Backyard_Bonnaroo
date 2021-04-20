@@ -18,12 +18,15 @@ function User() {
 
   const dispatch = useDispatch()
 
+  const [limit, setLimit] = useState(10)
   const [pastRes, setPastRes ] = useState(null)
   const [upcomingRes, setUpcomingRes] = useState(null)
+
 
   // Organize the reservations into past and present
   useEffect(() => {
     let total_reservations = storeUserData.reservations
+    console.log(total_reservations)
     let upcoming_res_temp = []
     let past_res_temp = []
     total_reservations.forEach(reservation => {
@@ -35,20 +38,18 @@ function User() {
       today.setHours(0,0,0,0)
       show_date.setHours(0,0,0,0)
 
-      if (today.getTime() > show_date.getTime()){
-        past_res_temp.push(reservation)
-      } else {
+      if (today.getTime() <= show_date.getTime()){
         upcoming_res_temp.push(reservation)
+      } else if (past_res_temp.length < limit){
+        past_res_temp.push(reservation)
       }
-      setPastRes(past_res_temp)
-      setUpcomingRes(upcoming_res_temp)
     })
-  }, [storeUserData])
+    // Rerverse the past shows so that the most recent shows are on top
+    setPastRes(past_res_temp.reverse())
+    setUpcomingRes(upcoming_res_temp)
+  }, [storeUserData, limit])
 
 
-  if (!storeUserData?.id) {
-    return null;
-  }
 
   const cancelReservation = async (e) => {
 
@@ -59,6 +60,14 @@ function User() {
     await dispatch(asyncRemoveShow(show_id_child.value, storeUserData.id))
   }
 
+  const showMore = (e) => {
+    setLimit(limit => limit + 10)
+  }
+
+
+  if (!storeUserData?.id) {
+    return null;
+  }
   return (
     <div className={c.page_parent}>
       <div className={c.page_container}>
@@ -110,6 +119,9 @@ function User() {
               {pastRes && pastRes.map(show => (
                 <UserReview show={show} key={show.artist.name+show.date+show.time} user_id={storeUserData.id} review={storeUserData.reviews[show.id]}/>
               ))}
+              <div onClick={showMore}>
+                Show More
+              </div>
             </div>
         </div>
       </div>
