@@ -9,6 +9,7 @@ class Artist(db.Model):
   bio = db.Column(db.Text)
   banner_URL = db.Column(db.String(255))
   sample_song = db.Column(db.String(255))
+  rating = db.Column(db.Float, default=0)
   created_on = db.Column(db.DateTime, default=datetime.now())
 
   shows = db.relationship("Show", back_populates="artist")

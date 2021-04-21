@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {useSelector,useDispatch} from 'react-redux'
+import {useHistory, useParams} from 'react-router-dom'
 
 import UserReview from '../user_reviews'
 
@@ -11,13 +12,20 @@ import {asyncRemoveShow} from '../../store/session'
 //Styling
 import c from './User.module.css'
 
+
+
+
+
 function User() {
 
   // This contains all the user information, including reservations
   const storeUserData = useSelector(store => store.session.user)
-
   const dispatch = useDispatch()
 
+  const params = useParams()
+  const history = useHistory()
+
+  // TESTING: increase after demo
   const LIMIT_INCREASE = 1
   const [limit, setLimit] = useState(LIMIT_INCREASE)
   const [pastRes, setPastRes ] = useState(null)
@@ -33,7 +41,13 @@ function User() {
     let upcoming_res_temp = []
     let past_res_temp = []
     total_reservations.forEach(reservation => {
-      const today = new Date()
+      let today = new Date()
+
+      // STRICTLY FOR TESTING
+      // let tomorrow = new Date(today)
+      // tomorrow.setDate(tomorrow.getDate() +2)
+      // today = tomorrow
+      // console.log(today.toDateString())
 
       const temp = reservation.date.split('-')
       const show_date = new Date(temp)
@@ -53,6 +67,13 @@ function User() {
 
   }, [storeUserData, limit])
 
+
+  // This prevents users from navigating to another user's page.
+  // The reason we prevent this is because all the user's data comes from the store, and is not updated based on the params.
+  // So even if a user navigated to a different profile, the original user's data would still be there
+  if (storeUserData.id !== parseInt(params.userId)){
+    history.push(`/users/${storeUserData.id}`)
+  }
 
   const cancelReservation = async (e) => {
 
@@ -74,7 +95,7 @@ function User() {
   // changes based on if there is anything more to show
   let showmore_style = c.showMore
   let total_reservations = storeUserData.reservations
-  if (pastRes?.length && pastRes.length === total_reservations.length - upcomingRes.length){
+  if (!pastRes?.length || pastRes.length === total_reservations.length - upcomingRes.length){
     showmore_style = c.noMore
   }
 

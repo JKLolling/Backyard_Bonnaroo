@@ -1,22 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react'
 
+// Utils
 import {getFormattedDateTime} from '../../services/date_time'
 
 //Store
-import { useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {asyncSetReview} from '../../store/session'
 
+// Styling
 import c from './UserReview.module.css'
 
 const star_color = 'rgb(255, 0, 0)'
 const empty_star_color = 'rgb(148, 146, 146)'
+
+
 
 const UserReview = ({show, user_id, review}) => {
   const ratingRef = useRef()
   const dispatch = useDispatch()
 
   const [rating, setRating] = useState(review?.rating)
-  // const [databaseRating,] = useState(review?.rating)
+
 
   // fills in the stars with whatever the rating is
   useEffect(() => {
@@ -39,7 +43,11 @@ const UserReview = ({show, user_id, review}) => {
   // Allows the user to save their new review
   const changeRating = async () => {
     if (rating !== review?.rating && rating !== -1){
-      dispatch(asyncSetReview(show.artist_id, user_id, show.id, rating))
+      let old_rating = review?.rating
+      if (!review?.rating){
+        old_rating = null
+      }
+      dispatch(asyncSetReview(show.artist_id, user_id, show.id, old_rating,rating))
     }
   }
 

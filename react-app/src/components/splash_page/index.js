@@ -38,6 +38,9 @@ const HomePage = () => {
       <div className={c.image_holder}>
           <img src='/static/home.jpg' alt='pleasant summer backyard concert' className={c.home_img}/>
       </div>
+      <div className={c.artists_container}>
+        Hot artists go here, organized by their average ranking. Perhaps a modal?
+      </div>
     </div>
   )
 }

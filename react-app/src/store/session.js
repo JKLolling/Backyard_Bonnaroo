@@ -13,16 +13,19 @@ export const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-export const asyncSetReview = (artist_id, user_id, show_id, rating) => async dispatch => {
+export const asyncSetReview = (artist_id, user_id, show_id, old_rating, new_rating) => async dispatch => {
+  console.log(old_rating)
   let res = await fetch( `/api/artists/${artist_id}/reviews`,{
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
     },
     body: JSON.stringify({
-      rating,
+      new_rating,
+      old_rating,
       user_id,
       show_id,
+
     })
   })
   let user = await res.json()

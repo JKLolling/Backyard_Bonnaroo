@@ -23,6 +23,7 @@
       position: relative;
       top: -140px;
       width: 55vw;
+      min-width: 100%;
     }
 
     .title{
