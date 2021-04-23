@@ -15,18 +15,18 @@ def post_review(artist_id):
     artist = Artist.query.get(artist_id)
     num_reviews = len(artist.reviews)
 
+
     review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
     if (review):
       review.rating = new_rating
 
-      # This is the formular for removing numbers from an average. We have to remove the old rating before adding the new
+      # If there is only one review, then the review you are modifying must be that review. So you can just replace the artist rating
+      #   with the new rating
       if num_reviews < 2:
-        artist.rating = 0
+        artist.rating = new_rating
       else:
-        artist.rating = (num_reviews * artist.rating - old_rating) / (num_reviews - 1)
-
-      # This is the formula for adding numbers to an average
-      artist.rating = artist.rating + (new_rating - artist.rating) / (num_reviews + 1)
+        # Formula for replacing a number in an average
+        artist.rating = (num_reviews * artist.rating - old_rating + new_rating) / num_reviews
     else:
       new_review = Review(
         rating= new_rating,
@@ -35,11 +35,9 @@ def post_review(artist_id):
         show_id= show_id
       )
       db.session.add(new_review)
-
-      # This is the formula for adding numbers to an average.
+      # Formula for adding a number to an average.
       artist.rating = artist.rating + (new_rating - artist.rating) / (num_reviews+1)
 
-    print(new_rating, artist.rating)
     db.session.commit()
 
     user = User.query.get(user_id)
@@ -48,9 +46,12 @@ def post_review(artist_id):
 
 @artist_routes.route('/', methods=['GET'])
 def get_top_artists():
-    artists = Artist.query.order_by(Artist.rating)
-    return [artist.to_dict for artist in artists]
-
+    artists = Artist.query.order_by(Artist.rating).all()
+    # for artist in artists:
+    #   print(artist.name, artist.rating)
+    #   print(artist.to_dict())
+    return {"hot_artists": [artist.to_dict() for artist in artists]}
+    # return {'yo':'Yo'}
     # review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
     # if (review):
     #   review.rating = rating
