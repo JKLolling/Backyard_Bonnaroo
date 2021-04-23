@@ -1,11 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import { NavLink, useLocation, useHistory} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 import LogoutButton from '../auth/LogoutButton';
 import DatePicker from '../date_picker'
 
-import {mapSetSearched} from '../../store/map'
 
 // Modal stuff
 import LoginFormModal from '../loginmodal'
@@ -15,8 +14,6 @@ import SignupFormModal from '../signupmodal'
 import c from './NavBar.module.css'
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
-
-  const dispatch = useDispatch()
   const location = useLocation();
   const pathIsMap = location.pathname.split('/')[1] === 'map'
 
@@ -29,9 +26,11 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     if (keyCode === 13){
       let searchParams = new URLSearchParams();
       searchParams.append('address', e.target.value)
+      searchParams.append('new_search', true)
       searchParams = searchParams.toString()
 
-      dispatch(mapSetSearched(true))
+      // dispatch(mapSetSearched(true))
+
 
       history.push(`/map/${searchParams}`)
     }

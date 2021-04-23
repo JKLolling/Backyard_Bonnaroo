@@ -1,6 +1,5 @@
 const SET_CENTER = 'map/SetCenter';
 const SET_DATE ='map/SetDate'
-const SEARCHED = 'map/Searched'
 
 export const mapSetCenter = (center) => {
 	return {
@@ -16,13 +15,6 @@ export const mapSetDate = (date) => {
   }
 }
 
-export const mapSetSearched= (bool) => {
-  return {
-    type: SEARCHED,
-    bool
-  }
-}
-
 const initialState = {
   center: {
     lat: 40.7675,
@@ -30,7 +22,6 @@ const initialState = {
   },
   zoom: 15,
   date: null,
-  searched: false,
 };
 
 const mapReducer = (state = initialState, action) => {
@@ -41,9 +32,6 @@ const mapReducer = (state = initialState, action) => {
 			return newState;
     case SET_DATE:
       newState = Object.assign({}, state, {date: action.date})
-      return newState
-    case SEARCHED:
-      newState = Object.assign({}, state, {searched: action.bool})
       return newState
 		default:
 			return state;

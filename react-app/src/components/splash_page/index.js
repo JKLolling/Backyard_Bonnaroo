@@ -23,6 +23,8 @@ const HomePage = () => {
       // searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
       searchParams = searchParams.toString()
 
+      // dispatch(mapSetSearched(true))
+
       history.push(`/map/${searchParams}`)
     }
   }

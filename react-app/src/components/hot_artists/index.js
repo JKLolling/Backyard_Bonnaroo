@@ -25,7 +25,7 @@ const ArtistCard = ({artist}) =>{
     // Enable side scrolling when mouse moves away
     window.onscroll = () => {};
 
-
+    // dispatch(mapSetSearched(true))
     history.push(`/map/${searchParams}`)
 }
 

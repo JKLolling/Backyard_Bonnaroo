@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import GoogleMapReact from 'google-map-react';
 import {mapSetCenter, mapSetDate} from '../../store/map'
@@ -7,7 +7,6 @@ import {mapSetCenter, mapSetDate} from '../../store/map'
 import ShowPin from '../show_pin'
 import ShowCard from '../show_card'
 
-import {mapSetSearched} from '../../store/map'
 
 //styling
 import c from './Map.module.css'
@@ -16,7 +15,8 @@ const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
 function Map(){
   const [shows, setShows] = useState([])
-  // const [params, setParams] = useState(useParams().mapParams)
+
+  const history = useHistory()
 
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
@@ -51,14 +51,21 @@ function Map(){
 
   // Get the map coords and date from the params and update the store params and date
   useEffect(() => {
-
-    if (!storeMapData?.searched){
-      return
-    }
     (async() => {
-
       const urlParams = new URLSearchParams(params)
       const address = urlParams.get('address')
+
+
+      // This allows users to drag away from a city, then research that city to return to it
+      // 'New_search' is added as a param from the navbar
+      const new_search = urlParams.get('new_search')
+      if (new_search){
+        let searchParams = new URLSearchParams();
+        searchParams.append('address', address)
+        searchParams = searchParams.toString()
+        history.push(`/map/${searchParams}`)
+      }
+
       const date = urlParams.get('date')
       if (date){
         dispatch(mapSetDate(date))
@@ -80,7 +87,7 @@ function Map(){
         console.log('Cannot find the address provided')
       }
     })();
-  }, [dispatch, params, storeMapData]);
+  }, [dispatch, params, history]);
 
   // Center the map around the map coords in the store on the very first load
   const apiIsLoaded = (map, maps) => {
@@ -90,13 +97,13 @@ function Map(){
     }
   };
 
+
+  // Only on drags
   const updateStoreCoords = (e) => {
-    if (storeMapData.searched){
-      dispatch(mapSetSearched(false))
-    } else {
-      const {lat, lng} = e.center
+      let {lat, lng} = e.center
+      lat = lat()
+      lng = lng()
       dispatch(mapSetCenter({lat, lng}))
-    }
   }
 
   return (
@@ -115,7 +122,8 @@ function Map(){
               bootstrapURLKeys={{ key: REACT_APP_API_KEY_GOOGLE_MAPS  }}
               center={storeMapData.center}
               zoom={storeMapData.zoom}
-              onChange={updateStoreCoords}
+              // onChange={updateStoreCoords}
+              onDragEnd={updateStoreCoords}
               hoverDistance={25}
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
