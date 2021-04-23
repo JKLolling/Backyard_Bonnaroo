@@ -15,7 +15,6 @@ def post_review(artist_id):
     artist = Artist.query.get(artist_id)
     num_reviews = len(artist.reviews)
 
-
     review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
     if (review):
       review.rating = new_rating

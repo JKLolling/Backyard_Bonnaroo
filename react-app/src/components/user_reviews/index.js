@@ -44,7 +44,7 @@ const UserReview = ({show, user_id, review}) => {
   const changeRating = async () => {
     if (rating !== review?.rating && rating !== -1){
       let old_rating = review?.rating
-      if (!review?.rating){
+      if (!review?.rating === undefined){
         old_rating = null
       }
       dispatch(asyncSetReview(show.artist_id, user_id, show.id, old_rating,rating))

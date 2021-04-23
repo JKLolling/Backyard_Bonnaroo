@@ -7,6 +7,8 @@ import {mapSetCenter, mapSetDate} from '../../store/map'
 import ShowPin from '../show_pin'
 import ShowCard from '../show_card'
 
+import {mapSetSearched} from '../../store/map'
+
 //styling
 import c from './Map.module.css'
 
@@ -14,10 +16,12 @@ const {REACT_APP_API_KEY_GOOGLE_MAPS} = process.env
 
 function Map(){
   const [shows, setShows] = useState([])
+  // const [params, setParams] = useState(useParams().mapParams)
 
   const dispatch = useDispatch()
   const storeMapData = useSelector(store => store.map)
-  const params = useParams().mapParams
+  let params = useParams().mapParams
+
 
   // Get the shows in the area
   useEffect(() => {
@@ -47,6 +51,10 @@ function Map(){
 
   // Get the map coords and date from the params and update the store params and date
   useEffect(() => {
+
+    if (!storeMapData?.searched){
+      return
+    }
     (async() => {
 
       const urlParams = new URLSearchParams(params)
@@ -61,7 +69,6 @@ function Map(){
       searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
       searchParams = `address=${searchParams.toString()}`
 
-
       let url = `https://maps.googleapis.com/maps/api/geocode/json?${searchParams}`
 
       try {
@@ -73,7 +80,7 @@ function Map(){
         console.log('Cannot find the address provided')
       }
     })();
-  }, [dispatch, params]);
+  }, [dispatch, params, storeMapData]);
 
   // Center the map around the map coords in the store on the very first load
   const apiIsLoaded = (map, maps) => {
@@ -84,8 +91,12 @@ function Map(){
   };
 
   const updateStoreCoords = (e) => {
-    const {lat, lng} = e.center
-    dispatch(mapSetCenter({lat, lng}))
+    if (storeMapData.searched){
+      dispatch(mapSetSearched(false))
+    } else {
+      const {lat, lng} = e.center
+      dispatch(mapSetCenter({lat, lng}))
+    }
   }
 
   return (

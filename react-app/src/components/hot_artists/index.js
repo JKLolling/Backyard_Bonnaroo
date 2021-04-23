@@ -22,6 +22,10 @@ const ArtistCard = ({artist}) =>{
     searchParams.append('date', first_show.date)
     searchParams = searchParams.toString()
 
+    // Enable side scrolling when mouse moves away
+    window.onscroll = () => {};
+
+
     history.push(`/map/${searchParams}`)
 }
 
