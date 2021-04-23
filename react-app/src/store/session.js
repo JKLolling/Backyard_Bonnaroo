@@ -1,7 +1,5 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
-const MAKE_RESERVATION = 'session/MAKE_RESERVATIONS'
-// const REMOVE_SHOW = 'session/REMOVE_SHOWS'
 
 // actions
 export const setUser = (user) => {
@@ -15,6 +13,24 @@ export const removeUser = () => ({
   type: REMOVE_USER,
 });
 
+export const asyncSetReview = (artist_id, user_id, show_id, old_rating, new_rating) => async dispatch => {
+  console.log(old_rating)
+  let res = await fetch( `/api/artists/${artist_id}/reviews`,{
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({
+      new_rating,
+      old_rating,
+      user_id,
+      show_id,
+
+    })
+  })
+  let user = await res.json()
+  dispatch(setUser(user))
+}
 
 export const asyncMakeReservation = (show_id, user_id) => async dispatch => {
   const res = await fetch(`/api/users/${user_id}/reservations`, {
@@ -48,12 +64,6 @@ export default function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { user: null };
-    case MAKE_RESERVATION:
-      let old_reservations = state.user.reservations
-      let new_reservations = [...old_reservations, action.show]
-      console.log(new_reservations)
-      // newState = Object.assign({}, state, {user[reservations]: new_reservations);
-			return state
     default:
       return state;
   }

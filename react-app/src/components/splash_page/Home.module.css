@@ -13,23 +13,23 @@
 
 }
 
-.title{
-  font-family: 'Courgette', cursive;
-  font-family: 'Berkshire Swash', cursive;
-  font-family: 'Pacifico', cursive;
+    .title{
+      font-family: 'Courgette', cursive;
+      font-family: 'Berkshire Swash', cursive;
+      font-family: 'Pacifico', cursive;
 
-  font-size: 2.5rem;
-  padding-top: 30px;
-}
-.subtitle{
-  font-family: 'Berkshire Swash', cursive;
-  font-family: 'Pacifico', cursive;
-  font-family: 'Courgette', cursive;
+      font-size: 2.5rem;
+      padding-top: 30px;
+    }
+    .subtitle{
+      font-family: 'Berkshire Swash', cursive;
+      font-family: 'Pacifico', cursive;
+      font-family: 'Courgette', cursive;
 
-  font-size: 1.25rem;
-  padding: 10px;
-  padding-bottom: 20px;
-}
+      font-size: 1.25rem;
+      padding: 10px;
+      padding-bottom: 20px;
+    }
 
 
 
@@ -97,3 +97,109 @@ input:focus{
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px black;
 }
+
+
+    .artists_parent{
+      position: relative;
+      top: 50px;
+
+      margin-top: 50px;
+      margin-bottom: 100px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+        .artists_scroller_title{
+          font-family: 'Courgette', cursive;
+          font-family: 'Pacifico', cursive;
+          font-size: 1.5em;
+
+          /* width: 55vw; */
+
+          /* text-align: center; */
+        }
+
+        .artists_scroller_container{
+          width: 60vw;
+          width: 90vw;
+
+
+          overflow-x: hidden;
+          overflow: auto;
+          white-space: nowrap;
+
+        }
+
+          .artists_scroller{
+            width: 200vw;
+
+            display: flex;
+            justify-content: space-around;
+
+            margin: 30px 0px;
+            z-index: 0;
+
+            /* touch-action: none; */
+          }
+              .artist_card{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                box-sizing: border-box;
+                padding: 10px;
+                padding-top: 20px;
+
+                border-radius: 10px;
+                cursor: pointer;
+
+                transition: all .3s ease-in-out;
+              }
+
+              .artist_card:hover{
+                /* background-color: rgba(246,241,238, 1); */
+                box-shadow: 0px 0px 10px 1px grey;
+              }
+
+                  .artist_name{
+                    font-family: 'Courgette', cursive;
+                    font-family: 'Pacifico', cursive;
+
+                    font-size: 1.5em;
+                    color: rgb(77, 77, 77);
+                  }
+
+                  .image_container{
+                    width: 15vw;
+                    height: 10vw;
+                    /* height: 20vh; */
+
+                    border-radius: 10px;
+                    overflow: hidden;
+
+                    /* border: 1px solid black; */
+                    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.6);
+
+                    margin: 0px 10px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    /* filter: blur(10px); */
+                  }
+                      .band_photo{
+                        width: 90%;
+                      }
+
+                  ::-webkit-scrollbar {
+                    width: 0;  /* Remove scrollbar space */
+                    background: transparent;  /* Optional: just make scrollbar invisible */
+                }
+                /* Optional: show position indicator in red */
+                /* ::-webkit-scrollbar-thumb {
+                    background: #FF0000;
+                } */

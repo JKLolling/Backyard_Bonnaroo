@@ -18,6 +18,7 @@ class Show(db.Model):
 
   artist = db.relationship("Artist", back_populates="shows")
   attendees = db.relationship('User', secondary=reservation_pairs, back_populates='reserved_shows')
+  reviews = db.relationship('Review', back_populates='show')
 
 
   def to_dict(self):
@@ -31,5 +32,5 @@ class Show(db.Model):
       "cost": self.cost,
       "description": self.description,
       "artist_id": self.artist_id,
-      'artist': self.artist.to_dict()
+      'artist': self.artist.to_dict(),
     }

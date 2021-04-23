@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
 
 import {mapSetDate} from '../../store/map'
@@ -13,6 +13,7 @@ const DatePicker = () => {
   Modal.setAppElement('#root');
 
   const dispatch = useDispatch()
+  const storeMapData = useSelector(store => store.map)
 
   const [showModal, setShowModal] = useState(false)
   const [selectedMonth, setSelectedMonth] = useState((new Date()).getMonth())
@@ -41,10 +42,17 @@ const DatePicker = () => {
 
   //Populate the date field on load with today's date
   useEffect(() => {
-    formatDate(new Date())
-  // eslint-disable-next-line
-  }, [])
+    if (storeMapData.date){
+      let data = storeMapData.date.split('-')
+      let [, month, date] = data
 
+      let days_months = `${monthMap[month-1]} ${date}`
+      setSelectedDate(days_months)
+    }
+  }, [storeMapData, monthMap])
+
+
+  // Sets what days show up on the calendar, in what order, in what column
   useEffect(() => {
     const getDaysInPreviousMonth = (month_num, year_num) => {
       let last_month = month_num
@@ -103,6 +111,7 @@ const DatePicker = () => {
     setSelectedYear(() => selectedYear - 1)
   }
 
+  // Dispatch new date to the store
   const formatDate = (date) =>{
     let month = date.getMonth() + 1
     if (month < 10){
@@ -116,10 +125,9 @@ const DatePicker = () => {
 
     let string_date = `${year}-${month}-${day}`
     dispatch(mapSetDate(string_date))
-    let days_months = `${monthMap[month-1]} ${day}`
-    setSelectedDate(days_months)
   }
 
+  // Capture the date clicked. Send it to formatdate
   const dateClicked = (e) => {
     if (!e.target.className.includes('invalid')){
       let temp = new Date(selectedYear, selectedMonth, e.target.innerText)
