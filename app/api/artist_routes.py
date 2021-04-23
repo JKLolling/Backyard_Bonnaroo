@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime
-from app.models import Artist, Review, User, db
+from app.models import Artist, Review, User, db, Show
 
 artist_routes = Blueprint('artists', __name__)
 
@@ -47,24 +47,35 @@ def post_review(artist_id):
 @artist_routes.route('/', methods=['GET'])
 def get_top_artists():
     artists = Artist.query.order_by(Artist.rating).all()
-    # for artist in artists:
-    #   print(artist.name, artist.rating)
-    #   print(artist.to_dict())
     return {"hot_artists": [artist.to_dict() for artist in artists]}
-    # return {'yo':'Yo'}
-    # review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
-    # if (review):
-    #   review.rating = rating
-    # else:
-    #   new_review = Review(
-    #     rating= rating,
-    #     user_id= user_id,
-    #     artist_id= artist_id,
-    #     show_id= show_id
-    #   )
-    #   db.session.add(new_review)
 
-    # db.session.commit()
 
-    # user = User.query.get(user_id)
-    # return user.to_dict()
+@artist_routes.route('/<int:artist_id>', methods=['GET'])
+def get_shows(artist_id):
+  artist = Artist.query.get(artist_id)
+
+  date = datetime.date(datetime.now())
+  date = str(date)
+  today_arr = date.split('-')
+  [today_year, today_month, today_date] = today_arr
+
+  valid_shows = []
+  for show in artist.shows:
+    date = show.to_dict()['date']
+    show_date_arr = date.split('-')
+
+    [show_year, show_month, show_date] = show_date_arr
+
+    # For now, we don't need that many shows
+    if len(valid_shows) > 9:
+      break
+
+    if int(show_year) > int(today_year):
+      valid_shows.append(show)
+    elif int(show_year) == int(today_year) and int(show_month) > int(today_month):
+      valid_shows.append(show)
+    elif int(show_year) == int(today_year) and int(show_month) == int(today_month) and int(show_date) >= int(today_date):
+      valid_shows.append(show)
+
+
+  return {'shows': [show.to_dict() for show in valid_shows]}

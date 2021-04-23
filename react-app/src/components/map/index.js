@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import GoogleMapReact from 'google-map-react';
-import {mapSetCenter} from '../../store/map'
+import {mapSetCenter, mapSetDate} from '../../store/map'
 
 import ShowPin from '../show_pin'
 import ShowCard from '../show_card'
@@ -30,7 +30,6 @@ function Map(){
         body: JSON.stringify(storeMapData)
       })
       const data = await res.json()
-      // setShows(data.shows)
 
       // This prevents multiple pins from being on the same spot
       const visited = new Set()
@@ -46,14 +45,22 @@ function Map(){
 
   }, [storeMapData])
 
-  // Get the map coords for the address and set the redux store with the map coords
+  // Get the map coords and date from the params and update the store params and date
   useEffect(() => {
     (async() => {
 
+      const urlParams = new URLSearchParams(params)
+      const address = urlParams.get('address')
+      const date = urlParams.get('date')
+      if (date){
+        dispatch(mapSetDate(date))
+      }
+
       // const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${REACT_APP_API_KEY_GOOGLE_MAPS}`)
-      let searchParams = new URLSearchParams(params);
+      let searchParams = new URLSearchParams(address);
       searchParams.append('key', REACT_APP_API_KEY_GOOGLE_MAPS)
-      searchParams = searchParams.toString()
+      searchParams = `address=${searchParams.toString()}`
+
 
       let url = `https://maps.googleapis.com/maps/api/geocode/json?${searchParams}`
 

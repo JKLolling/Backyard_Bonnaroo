@@ -26,7 +26,7 @@ function User() {
   const history = useHistory()
 
   // TESTING: increase after demo
-  const LIMIT_INCREASE = 1
+  const LIMIT_INCREASE = 10
   const [limit, setLimit] = useState(LIMIT_INCREASE)
   const [pastRes, setPastRes ] = useState(null)
   const [upcomingRes, setUpcomingRes] = useState(null)

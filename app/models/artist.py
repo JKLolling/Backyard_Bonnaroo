@@ -20,6 +20,7 @@ class Artist(db.Model):
       "id": self.id,
       "name": self.name,
       "bio": self.bio,
+      'rating': self.rating,
       "banner_URL": self.banner_URL,
       "sample_song": self.sample_song
     }

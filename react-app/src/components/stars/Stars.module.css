@@ -1,0 +1,19 @@
+.stars_holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    .stars{
+      background: linear-gradient(to right, var(--star-color) 0%, var(--star-color) 0%, var(--empty-star-color) 0%, var(--empty-star-color) 100%);
+      width: fit-content;
+
+      font-size: 2em;
+
+      background-clip:text;
+      color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      cursor: pointer;
+    }
