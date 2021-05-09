@@ -91,14 +91,6 @@ To run this application locally, follow these steps:
    There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
 ***
 
-
-
-10. Under Settings find "Config Vars" and add any additional/secret .env variables.
-
-11. profit
-
-https://open.appacademy.io/learn/js-py---nov-2020-cohort-1-online/week-16-nov-2020-cohort-1-online/github-project-readme
-
 ## Obstacles
 
 ## Future Features
