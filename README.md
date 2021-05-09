@@ -1,13 +1,49 @@
-# Flask React Project
+# [Backyard Bonnaroo](https://backyard-bonnaroo.herokuapp.com/)
 
-This is the backend for the Flask React project.
+Hello! 
 
-## Getting started
+Backyard Bonnaroo is a web application for up and coming musicians to post their shows. 
+
+Is your band playing at a bar downtown? Are you hosting a house concert? Are you busking in the local park? Backyard Bonnaroo has you covered! Sign up and get the word out.
+
+Want to listen to music instead of play it? Search for shows in your area! Each show includes a sample of that artist's music to help you pick the best possible show for you. Who knows? Your next favorite band could be playing next door!
+
+Thanks for keeping it live, loud and local!
+
+Live Link [Here](https://backyard-bonnaroo.herokuapp.com/)
+
+Github Wiki Link [Here](https://github.com/JKLolling/Backyard_Bonnaroo/wiki/Home/)
+
+## Technologies Used
+
+### Backend
+RESTful routes make this backend intuitive and organized. Additioanlly, I connected SQLAlchemy to my Postgresql database, and created database classes and relationships to keep  queries as simple and efficient as possible. The Google Maps and Google Geodcode APIs are used to quickly search for shows and display the results in an appealing, helpful way. For a complete list of backend technologies, see below:
+ - Python
+ - Flask
+ - WTForms and Flask-WTF
+ - SQLAlchemy Flask-SQLAlchemy
+ - Alembic 
+ - Postgresql
+ - Google Maps API
+ - Google Geocode API
+### Frontend
+Built using React, this site is a single page, wicked fast application. For a complete list of backend technologies, see below:
+- Javascript
+- React
+- Redux
+- HTML5
+- CSS3
+
+## Features
+
+## Installation Instructions
+
+To run this application locally, follow these steps: 
 
 1. Clone this repository (only this branch)
 
    ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
+   git clone https://github.com/JKLolling/Backyard_Bonnaroo.git
    ```
 
 2. Install dependencies
@@ -16,11 +52,12 @@ This is the backend for the Flask React project.
       pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
       ```
 
-3. Create a **.env** file based on the example with proper settings for your
+3. Create a **.env** file based on the **.env.example** with proper settings for your
    development environment
+   
 4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+5. Get into your pipenv, migrate your database, seed your database, and run your flask app (the backend)
 
    ```bash
    pipenv shell
@@ -54,47 +91,14 @@ This is the backend for the Flask React project.
    There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
 ***
 
-## Deploy to Heroku
 
-1. Create a new project on Heroku
-2. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-4. Run
-
-   ```bash
-   heroku login
-   ```
-
-5. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-6. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-7. Push your docker container to heroku from the root directory of your project.
-   This will build the dockerfile and push the image to your heroku container registry
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-8. Release your docker container to heroku
-
-   ```bash
-   heroku container:release web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. set up your database:
-
-   ```bash
-   heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-   heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-   ```
 
 10. Under Settings find "Config Vars" and add any additional/secret .env variables.
 
 11. profit
 
 https://open.appacademy.io/learn/js-py---nov-2020-cohort-1-online/week-16-nov-2020-cohort-1-online/github-project-readme
+
+## Obstacles
+
+## Future Features
