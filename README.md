@@ -2,7 +2,7 @@
 
 Hello! 
 
-Backyard Bonnaroo is a site for up and coming musicians to post their shows. 
+Backyard Bonnaroo is a web application for up and coming musicians to post their shows. 
 
 Is your band playing at a bar downtown? Are you hosting a house concert? Are you busking in the local park? Backyard Bonnaroo has you covered! Sign up and get the word out.
 
@@ -14,10 +14,29 @@ Live Link [Here](https://backyard-bonnaroo.herokuapp.com/)
 
 Github Wiki Link [Here](https://github.com/JKLolling/Backyard_Bonnaroo/wiki/Home/)
 
+## Technologies Used
 
+### Backend
+RESTful routes make this backend intuitive and organized. Additioanlly, I connected SQLAlchemy to my Postgresql database, and created database classes and relationships to keep  queries as simple and efficient as possible. The Google Maps and Google Geodcode APIs are used to quickly search for shows and display the results in an appealing, helpful way. For a complete list of backend technologies, see below:
+ - Python
+ - Flask
+ - WTForms and Flask-WTF
+ - SQLAlchemy Flask-SQLAlchemy
+ - Alembic 
+ - Postgresql
+ - Google Maps API
+ - Google Geocode API
+### Frontend
+Built using React, this site is a single page, wicked fast application. For a complete list of backend technologies, see below:
+- Javascript
+- React
+- Redux
+- HTML5
+- CSS3
 
+## Features
 
-## Getting started
+## Installation Instructions
 
 1. Clone this repository (only this branch)
 
@@ -113,3 +132,7 @@ Github Wiki Link [Here](https://github.com/JKLolling/Backyard_Bonnaroo/wiki/Home
 11. profit
 
 https://open.appacademy.io/learn/js-py---nov-2020-cohort-1-online/week-16-nov-2020-cohort-1-online/github-project-readme
+
+## Obstacles
+
+## Future Features
