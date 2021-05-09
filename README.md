@@ -76,15 +76,15 @@ To run this application locally, follow these steps:
    flask run
    ```
 8. Install frontend dependencies 
-  // In the react-app folder
-  ```bash
+   ```bash
+   // In the react-app folder
    npm install
    ```
 10. Start the frontend
-   // In the react-app folder
-   ```bash
-   npm start
-   ```
+    ```bash
+    // In the react-app folder
+    npm start
+    ```
 ***
 *IMPORTANT!*
    If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
