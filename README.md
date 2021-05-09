@@ -1,6 +1,21 @@
-# Flask React Project
+# [Backyard Bonnaroo](https://backyard-bonnaroo.herokuapp.com/)
 
-This is the backend for the Flask React project.
+Hello! 
+
+Backyard Bonnaroo is a site for up and coming musicians to post their shows. 
+
+Is your band playing at a bar downtown? Are you hosting a house concert? Are you busking in the local park? Backyard Bonnaroo has you covered! Sign up and get the word out.
+
+Want to listen to music instead of play it? Search for shows in your area! Each show includes a sample of that artist's music to help you pick the best possible show for you. Who knows? Your next favorite band could be playing next door!
+
+Thanks for keeping it live, loud and local!
+
+Live Link [Here](https://backyard-bonnaroo.herokuapp.com/)
+
+Github Wiki Link [Here](https://github.com/JKLolling/Backyard_Bonnaroo/wiki/Home/)
+
+
+
 
 ## Getting started
 
