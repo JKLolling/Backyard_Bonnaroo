@@ -57,7 +57,7 @@ To run this application locally, follow these steps:
    
 4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app (the backend)
+5. Get into your pipenv, migrate your database and seed your database
 
    ```bash
    pipenv shell
@@ -71,12 +71,20 @@ To run this application locally, follow these steps:
    flask seed all
    ```
 
+6. Start the backend
    ```bash
    flask run
    ```
-
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
+8. Install frontend dependencies 
+  // In the react-app folder
+  ```bash
+   npm install
+   ```
+10. Start the frontend
+   // In the react-app folder
+   ```bash
+   npm start
+   ```
 ***
 *IMPORTANT!*
    If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
