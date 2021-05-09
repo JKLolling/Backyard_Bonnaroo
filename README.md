@@ -99,6 +99,6 @@ To run this application locally, follow these steps:
    There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
 ***
 
-## Obstacles
+## Obstacles and Solutions
 
 ## Future Features
