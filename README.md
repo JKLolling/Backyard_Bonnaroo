@@ -127,10 +127,11 @@ To run this application locally, follow these steps:
 
 ## Obstacles and Solutions
 
-When a user searches a location for shows, they only need the shows close to that location. Populating the map with every show would be extremely slow. 
-One approach would be to retrieve all the shows then filter the results based on distance. While this works for smaller databases, it is not particularly scalable. 
-The solution I implemented was to filter in the actual Postgresql query itself, thereby eliminating all downstream filtering.
-Below, I included the Haversine Formula (which calculates the distance between two points on the globe) as part of a postgresql query. I also filtered based on the user's selected date.
+### Retrieve nearby shows
+When a user searches a location for shows, they only need the shows close to that location. Populating the map with every show would be extremely slow.  
+One approach would be to retrieve all the shows then filter the results based on distance. While this works for smaller databases, it is not particularly scalable.   
+The solution I implemented was to filter in the actual Postgresql query itself, thereby eliminating all downstream filtering.  
+Below, I included the Haversine Formula (which calculates the distance between two points on the globe) as part of a postgresql query. I also filtered based on the user's selected date.  
 The result is a performant, scalable way to retrieve the exact information needed. 
 ```JavaScript
 @show_routes.route('/', methods=['POST'])
@@ -163,7 +164,13 @@ def shows():
     return {"shows": [show.to_dict() for show in shows]}
   ```
 
-Update Ratings
+### Rate a show
+Logged in users can leave a review of a past show. The reviews are simply stars, 1-5.  
+Bands have an average rating, based on the average of all the reviews of all their shows.  
+Adding a review and updating the bands rating is fairly straightforward. The tricky part is allowing users to update their review after they've submitted it.  
+You can't simply add a new review, because then the band's average wouldn't be accurate.  
+My solution to this problem involved a series of checks: is this a new review, or an update? Is this the only review an artist has, or are there others?  
+Based on the answers to those questions, different formulas were used to either replace, add a number to, or update a number in the average. 
 ```JavaScript
 @artist_routes.route('/<int:artist_id>/reviews', methods=['POST'])
 def post_review(artist_id):
@@ -194,6 +201,7 @@ def post_review(artist_id):
         show_id= show_id
       )
       db.session.add(new_review)
+      
       # Formula for adding a number to an average.
       artist.rating = artist.rating + (new_rating - artist.rating) / (num_reviews+1)
 
