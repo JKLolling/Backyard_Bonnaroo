@@ -36,30 +36,32 @@ Built using React, this site is a single page, wicked fast application. For a co
 
 ## Features
 
-Login / Signup
+### Login / Signup
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/login.png?raw=true)
-
-
-View Trending artists (based on all user ratings)
+<br/><br/>
+  
+### View Trending artists (based on all user ratings)
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/Splash_page.png?raw=true)
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/trending_artists.png?raw=true)
-
-
-Search for shows
+<br/><br/>
+  
+### Search for Shows
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/search_shows.png?raw=true)
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/calendar.png?raw=true)
-
-
-Play audio
-Make reservations
+<br/><br/> 
+  
+### Make reservations
+play audio
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/play_song.png?raw=true)
-
-
+<br/><br/>  
+   
+### User Profile
 View Reservations
 Cancel Reservations
 Rate past shows, update ratings
 ![alt text](https://github.com/JKLolling/Backyard_Bonnaroo/blob/main/README_images/rate_artists.png?raw=true)
-
+<br/><br/>  
+  
 ## Installation Instructions
 
 To run this application locally, follow these steps: 
