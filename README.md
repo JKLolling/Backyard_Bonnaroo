@@ -132,3 +132,7 @@ To run this application locally, follow these steps:
 
 
 ## Future Features
+[] - Add a band page, where user's can see the average rating, past shows and upcomming shows of a band
+[] - Allow users to register a band / create their own band page 
+[] - Allow users to submit upcoming shows for any bands that they registered / own
+[] - Hook up the user's new show dates to AWS so user's can add sample songs and band photos
