@@ -126,5 +126,9 @@ To run this application locally, follow these steps:
 ***
 
 ## Obstacles and Solutions
+-Haversine formula
+-update ratings
+
+
 
 ## Future Features
