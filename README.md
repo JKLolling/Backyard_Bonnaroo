@@ -126,10 +126,82 @@ To run this application locally, follow these steps:
 ***
 
 ## Obstacles and Solutions
--Haversine formula
--update ratings
 
+When a user searches a location for shows, they only need the shows close to that location. Populating the map with every show would be extremely slow. 
+One approach would be to retrieve all the shows then filter the results based on distance. While this works for smaller databases, it is not particularly scalable. 
+The solution I implemented was to filter in the actual Postgresql query itself, thereby eliminating all downstream filtering.
+Below, I included the Haversine Formula (which calculates the distance between two points on the globe) as part of a postgresql query. I also filtered based on the user's selected date.
+The result is a performant, scalable way to retrieve the exact information needed. 
+```JavaScript
+@show_routes.route('/', methods=['POST'])
+def shows():
+    center = request.get_json()['center']
+    lat = center['lat']
+    lng = center['lng']
 
+    date = request.get_json()['date']
+
+    // If the user did not specify a date, use today
+    if(not date):
+      date = datetime.date(datetime.now())
+      date = str(date)
+
+    query = f"""
+            SELECT s.id, v.distance
+            FROM shows s CROSS JOIN LATERAL
+                (VALUES
+                  ( 3959 * acos( cos( radians({lat}) ) * cos( radians( s.location_lat ) ) *
+                    cos( radians( s.location_lng ) - radians({lng}) ) + sin( radians({lat}) ) * sin( radians( s.location_lat ) ) )
+                        )
+                ) v(distance)
+            WHERE v.distance < 25 AND s.date = '{date}'
+            ORDER BY s.date; """
+
+    query = text(query)
+    shows = Show.query.from_statement(query).all()
+
+    return {"shows": [show.to_dict() for show in shows]}
+  ```
+
+Update Ratings
+```JavaScript
+@artist_routes.route('/<int:artist_id>/reviews', methods=['POST'])
+def post_review(artist_id):
+    old_rating = request.get_json()['old_rating']
+    new_rating = request.get_json()['new_rating']
+    user_id = request.get_json()['user_id']
+    show_id = request.get_json()['show_id']
+
+    artist = Artist.query.get(artist_id)
+    num_reviews = len(artist.reviews)
+
+    review = Review.query.filter_by(user_id=user_id, show_id=show_id).first()
+    if (review):
+      review.rating = new_rating
+
+      # If there is only one review, then the review you are modifying must be that review. So you can just replace the artist rating
+      #   with the new rating
+      if num_reviews < 2:
+        artist.rating = new_rating
+      else:
+        # Formula for replacing a number in an average
+        artist.rating = (num_reviews * artist.rating - old_rating + new_rating) / num_reviews
+    else:
+      new_review = Review(
+        rating= new_rating,
+        user_id= user_id,
+        artist_id= artist_id,
+        show_id= show_id
+      )
+      db.session.add(new_review)
+      # Formula for adding a number to an average.
+      artist.rating = artist.rating + (new_rating - artist.rating) / (num_reviews+1)
+
+    db.session.commit()
+
+    user = User.query.get(user_id)
+    return user.to_dict()
+```
 
 ## Future Features
 - [ ] Add a band page, where user's can see the average rating, past shows and upcomming shows of a band
